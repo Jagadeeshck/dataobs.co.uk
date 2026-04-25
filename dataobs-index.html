@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataObs — OTEL-first Data Observability Built Around Your Stack</title>
+  <meta name="description" content="DataObs designs and delivers vendor-neutral data observability for AWS-native data platforms using OpenTelemetry and the tools you already have — Elastic, Grafana, OpenSearch, Datadog, and more.">
+  <meta property="og:title" content="DataObs — OTEL-first Data Observability Built Around Your Stack">
+  <meta property="og:description" content="Vendor-neutral data observability consultancy for AWS data platforms. Freshness, quality, lineage, volume, and trust — delivered with your current observability tools.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b0f19">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@500,700,800&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-3xl: clamp(2.8rem, 1rem + 4vw, 5.2rem);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+      --space-32: 8rem;
+      --color-bg: #f6f8fb;
+      --color-surface: #ffffff;
+      --color-surface-2: #f7fafc;
+      --color-surface-offset: #edf3f8;
+      --color-surface-offset-2: #e6eef6;
+      --color-surface-dynamic: #dae6f2;
+      --color-border: #c8d6e4;
+      --color-divider: #d7e0e8;
+      --color-text: #101826;
+      --color-text-muted: #506073;
+      --color-text-faint: #7c8999;
+      --color-text-inverse: #edf7ff;
+      --color-primary: #0ea5c6;
+      --color-primary-hover: #0b89a5;
+      --color-primary-active: #08687d;
+      --color-primary-highlight: #d8f3fb;
+      --color-success: #1f8f62;
+      --color-orange: #da7101;
+      --color-blue: #2563eb;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.875rem;
+      --radius-xl: 1.25rem;
+      --radius-2xl: 1.5rem;
+      --radius-full: 9999px;
+      --shadow-sm: 0 1px 2px oklch(0.2 0.03 240 / 0.06);
+      --shadow-md: 0 8px 24px oklch(0.18 0.03 240 / 0.10);
+      --shadow-lg: 0 24px 60px oklch(0.18 0.03 240 / 0.16);
+      --transition: 180ms cubic-bezier(.16,1,.3,1);
+      --content: 1160px;
+      --content-wide: 1280px;
+      --font-body: 'Satoshi', Inter, sans-serif;
+      --font-display: 'Cabinet Grotesk', Inter, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #08111d;
+      --color-surface: #0d1725;
+      --color-surface-2: #101c2c;
+      --color-surface-offset: #122134;
+      --color-surface-offset-2: #17283d;
+      --color-surface-dynamic: #1c3250;
+      --color-border: #22384f;
+      --color-divider: #172636;
+      --color-text: #e6f0fb;
+      --color-text-muted: #9bb0c6;
+      --color-text-faint: #6f8498;
+      --color-text-inverse: #08111d;
+      --color-primary: #39d0f2;
+      --color-primary-hover: #1ab6da;
+      --color-primary-active: #0f8ea9;
+      --color-primary-highlight: #123846;
+      --color-success: #31c48d;
+      --color-orange: #fdab43;
+      --color-blue: #60a5fa;
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
+      --shadow-md: 0 10px 28px oklch(0 0 0 / 0.32);
+      --shadow-lg: 0 26px 64px oklch(0 0 0 / 0.44);
+    }
+
+    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    body {
+      min-height: 100dvh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 14%, transparent), transparent 30%),
+        radial-gradient(circle at left 30%, color-mix(in oklab, var(--color-blue) 10%, transparent), transparent 28%),
+        var(--color-bg);
+      overflow-x: hidden;
+    }
+    img, svg { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    button, input, textarea { font: inherit; color: inherit; }
+    button { border: none; background: none; cursor: pointer; }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.02; letter-spacing: -0.04em; text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -3rem;
+      background: var(--color-primary);
+      color: #03131a;
+      padding: .7rem 1rem;
+      border-radius: var(--radius-md);
+      z-index: 100;
+      font-weight: 700;
+    }
+    .skip-link:focus { top: 1rem; }
+    .container, .container-wide {
+      width: min(calc(100% - 2rem), var(--content));
+      margin-inline: auto;
+    }
+    .container-wide { width: min(calc(100% - 2rem), var(--content-wide)); }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: color-mix(in oklab, var(--color-bg) 76%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 76px;
+      position: relative;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .brand-mark {
+      width: 2.75rem;
+      height: 2.75rem;
+      color: var(--color-primary);
+    }
+    .brand-copy strong {
+      display: block;
+      font-size: var(--text-sm);
+      letter-spacing: .01em;
+    }
+    .brand-copy span {
+      display: block;
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+    }
+    .desktop-nav a {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .desktop-nav a:hover { color: var(--color-text); }
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+    .chip-btn, .menu-btn {
+      width: 2.8rem;
+      height: 2.8rem;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-full);
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      background: color-mix(in oklab, var(--color-surface) 92%, var(--color-primary) 8%);
+      box-shadow: var(--shadow-sm);
+    }
+    .menu-btn { display: none; }
+    .btn {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .65rem;
+      padding: .92rem 1.24rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: background var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--color-primary);
+      color: #03131a;
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-primary) 40%, transparent), 0 12px 36px color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-secondary {
+      background: color-mix(in oklab, var(--color-surface) 90%, transparent);
+      border-color: color-mix(in oklab, var(--color-text) 12%, transparent);
+      color: var(--color-text);
+    }
+    .btn-secondary:hover { background: var(--color-surface-offset); }
+    .mini-nav {
+      display: none;
+      position: absolute;
+      top: calc(100% + .6rem);
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: color-mix(in oklab, var(--color-surface) 94%, var(--color-primary) 6%);
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      box-shadow: var(--shadow-lg);
+    }
+    .mini-nav nav { display: grid; gap: .85rem; }
+    .mini-nav a { font-size: var(--text-sm); color: var(--color-text-muted); }
+    .mini-nav.open { display: block; }
+
+    section { padding: clamp(4rem, 8vw, 7rem) 0; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .5rem .84rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      background: color-mix(in oklab, var(--color-surface) 78%, var(--color-primary) 22%);
+      color: var(--color-text);
+    }
+    .eyebrow::before {
+      content: "";
+      width: .52rem;
+      height: .52rem;
+      border-radius: 50%;
+      background: var(--color-success);
+      box-shadow: 0 0 0 6px color-mix(in oklab, var(--color-success) 14%, transparent);
+    }
+
+    .hero {
+      padding-top: clamp(4.5rem, 8vw, 7rem);
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(color-mix(in oklab, var(--color-text) 8%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in oklab, var(--color-text) 8%, transparent) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+      opacity: .22;
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: clamp(1.5rem, 3vw, 3rem);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-copy h1 {
+      font-size: var(--text-3xl);
+      max-width: 10ch;
+      margin-top: 1rem;
+    }
+    .hero-copy p {
+      margin-top: 1.15rem;
+      max-width: 41rem;
+      color: var(--color-text-muted);
+      font-size: var(--text-lg);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .9rem;
+      margin-top: 2rem;
+    }
+    .hero-notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .note, .panel, .signal-card, .compat-card, .step, .faq-item, .contact-card, .band, .story-card {
+      background: color-mix(in oklab, var(--color-surface) 94%, transparent);
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(8px);
+    }
+    .note {
+      padding: 1rem;
+      border-radius: var(--radius-xl);
+    }
+    .note span {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .note strong {
+      font-size: var(--text-lg);
+      font-family: var(--font-display);
+      letter-spacing: -.03em;
+    }
+    .hero-visual {
+      position: relative;
+      min-height: 640px;
+      border-radius: 1.8rem;
+      padding: 1rem;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--color-primary) 16%, var(--color-surface)), color-mix(in oklab, var(--color-surface) 88%, transparent)),
+        var(--color-surface);
+      border: 1px solid color-mix(in oklab, var(--color-primary) 20%, transparent);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 25%, color-mix(in oklab, var(--color-primary) 18%, transparent), transparent 24%);
+      pointer-events: none;
+    }
+    .dash {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 1rem;
+    }
+    .panel {
+      padding: 1rem;
+      border-radius: calc(1.8rem - 1rem);
+      background: color-mix(in oklab, var(--color-surface-2) 82%, var(--color-primary) 18%);
+    }
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: .9rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .38rem .65rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      color: var(--color-text);
+      background: color-mix(in oklab, var(--color-success) 15%, var(--color-surface));
+    }
+    .bars {
+      height: 150px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: end;
+      gap: .45rem;
+    }
+    .bars span {
+      display: block;
+      border-radius: 999px 999px .4rem .4rem;
+      background: linear-gradient(180deg, var(--color-primary), color-mix(in oklab, var(--color-primary) 32%, var(--color-surface-offset)));
+      box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 1rem;
+    }
+    .list { display: grid; gap: .72rem; }
+    .list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 1rem;
+      padding: .8rem 0;
+      border-bottom: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent);
+    }
+    .list-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .muted {
+      color: var(--color-text-muted);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .network {
+      display: grid;
+      place-items: center;
+      min-height: 235px;
+      position: relative;
+      isolation: isolate;
+    }
+    .network svg {
+      width: 100%;
+      max-width: 300px;
+      color: var(--color-primary);
+      opacity: .98;
+      filter: drop-shadow(0 0 20px color-mix(in oklab, var(--color-primary) 26%, transparent));
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 2rem;
+    }
+    .section-head h2 { font-size: var(--text-2xl); }
+    .section-head p { color: var(--color-text-muted); max-width: 54ch; }
+
+    .compat-band {
+      padding-top: 0;
+    }
+    .band {
+      border-radius: 1.4rem;
+      padding: 1.2rem;
+      display: grid;
+      gap: 1rem;
+      background: linear-gradient(180deg, color-mix(in oklab, var(--color-primary) 10%, var(--color-surface)), var(--color-surface));
+    }
+    .tool-row {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: .8rem;
+    }
+    .tool {
+      min-height: 68px;
+      border-radius: 1rem;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: .8rem;
+      border: 1px solid color-mix(in oklab, var(--color-text) 10%, transparent);
+      background: color-mix(in oklab, var(--color-surface-2) 88%, var(--color-primary) 12%);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: .01em;
+    }
+
+    .signals-grid, .story-grid, .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .signal-card, .story-card {
+      padding: 1.35rem;
+      border-radius: 1.25rem;
+      min-height: 100%;
+    }
+    .signal-card h3, .story-card h3 {
+      font-size: var(--text-xl);
+      margin-bottom: .75rem;
+    }
+    .signal-card p, .story-card p { color: var(--color-text-muted); }
+    .signal-tag {
+      display: inline-flex;
+      margin-bottom: .9rem;
+      padding: .35rem .62rem;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: color-mix(in oklab, var(--color-primary) 14%, var(--color-surface));
+      color: var(--color-text);
+    }
+
+    .delivery-grid, .contact-grid {
+      display: grid;
+      grid-template-columns: .96fr 1.04fr;
+      gap: 1rem;
+    }
+    .story-card { background: color-mix(in oklab, var(--color-surface) 90%, var(--color-primary) 10%); }
+    .steps {
+      display: grid;
+      gap: 1rem;
+    }
+    .step {
+      padding: 1.35rem;
+      border-radius: 1.25rem;
+      position: relative;
+      background: color-mix(in oklab, var(--color-surface-2) 88%, var(--color-primary) 12%);
+    }
+    .step small {
+      display: block;
+      margin-bottom: .45rem;
+      color: var(--color-text-faint);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .step h3 {
+      font-size: var(--text-xl);
+      margin-bottom: .5rem;
+    }
+    .step p { color: var(--color-text-muted); }
+
+    .split-list {
+      display: grid;
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+    .split-list li {
+      list-style: none;
+      position: relative;
+      padding-left: 1rem;
+      color: var(--color-text-muted);
+    }
+    .split-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .72rem;
+      width: .38rem;
+      height: .38rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .faq-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .faq-item {
+      padding: 1.35rem;
+      border-radius: 1.1rem;
+    }
+    .faq-item h3 {
+      font-size: var(--text-lg);
+      font-family: var(--font-body);
+      font-weight: 700;
+      letter-spacing: -.01em;
+      margin-bottom: .45rem;
+    }
+    .faq-item p { color: var(--color-text-muted); }
+
+    .cta {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 1.6rem;
+      background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary) 18%, var(--color-surface)), color-mix(in oklab, var(--color-surface) 88%, transparent));
+      border: 1px solid color-mix(in oklab, var(--color-primary) 22%, transparent);
+      box-shadow: var(--shadow-md);
+    }
+    .cta p { color: var(--color-text-muted); margin-top: .7rem; max-width: 58ch; }
+
+    .contact-card {
+      padding: 1.5rem;
+      border-radius: 1.35rem;
+    }
+    .contact-list {
+      display: grid;
+      gap: .85rem;
+      margin-top: 1rem;
+    }
+    .contact-list a, .contact-list span { color: var(--color-text); font-size: var(--text-sm); }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      border-top: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid, .section-head, .delivery-grid, .contact-grid, .cta { grid-template-columns: 1fr; }
+      .signals-grid, .story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tool-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .hero-notes { grid-template-columns: 1fr; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: auto; }
+    }
+    @media (max-width: 780px) {
+      .desktop-nav, .header-cta .btn { display: none; }
+      .menu-btn { display: grid; }
+      .tool-row, .signals-grid, .story-grid, .faq-grid { grid-template-columns: 1fr; }
+      .hero-copy h1 { max-width: 11ch; }
+      .hero-actions .btn { width: 100%; }
+      .hero-visual { padding: .85rem; }
+      .panel { border-radius: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="header">
+    <div class="container-wide header-inner">
+      <a class="brand" href="#top" aria-label="DataObs home">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DataObs logo">
+          <rect x="8" y="10" width="48" height="44" rx="12" stroke="currentColor" stroke-width="4"/>
+          <path d="M22 40V24" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M32 40V18" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M42 40V29" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="M18 46C23 41 28 38.5 33 38.5C38 38.5 43 34.5 46 30" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-copy">
+          <strong>DataObs</strong>
+          <span>OTEL-first data observability</span>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary">
+        <a href="#approach">Approach</a>
+        <a href="#signals">Signals</a>
+        <a href="#delivery">Delivery</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-cta">
+        <button class="chip-btn" data-theme-toggle aria-label="Switch theme"></button>
+        <a class="btn btn-primary" href="#contact">Book an architecture call</a>
+        <button class="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+
+      <div class="mini-nav" id="mobile-nav">
+        <nav>
+          <a href="#approach">Approach</a>
+          <a href="#signals">Signals</a>
+          <a href="#delivery">Delivery</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container-wide hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">OTEL-first. Vendor-neutral. Built around your stack.</span>
+          <h1>Data observability built around the tools you already have.</h1>
+          <p>DataObs helps engineering and data teams design and deliver data observability using OpenTelemetry and the observability platforms already available in their environment — Elastic, Grafana, OpenSearch, Datadog, or a mixed stack. The aim is practical visibility into freshness, quality, lineage, volume, and trust without forcing a rip-and-replace platform decision.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Book an architecture call</a>
+            <a class="btn btn-secondary" href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener noreferrer">View GitHub</a>
+          </div>
+          <div class="hero-notes">
+            <div class="note"><span>Model</span><strong>Consulting with reusable accelerators</strong></div>
+            <div class="note"><span>Backbone</span><strong>OpenTelemetry plus existing tooling</strong></div>
+            <div class="note"><span>Fit</span><strong>AWS-native, platform-heavy, data-critical teams</strong></div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="dash">
+            <div class="panel">
+              <div class="panel-head">
+                <strong>Telemetry health</strong>
+                <span class="pill">OTEL routing active</span>
+              </div>
+              <div class="bars">
+                <span style="height:48%"></span><span style="height:58%"></span><span style="height:66%"></span><span style="height:62%"></span><span style="height:74%"></span><span style="height:77%"></span><span style="height:83%"></span><span style="height:72%"></span><span style="height:88%"></span><span style="height:94%"></span><span style="height:90%"></span><span style="height:98%"></span>
+              </div>
+            </div>
+            <div class="dash-grid">
+              <div class="panel">
+                <div class="panel-head">
+                  <strong>Active signals</strong>
+                  <span class="muted">Last 24h</span>
+                </div>
+                <div class="list">
+                  <div class="list-row"><div><strong>Freshness breach</strong><div class="muted">orders.hourly</div></div><strong>2h 14m</strong></div>
+                  <div class="list-row"><div><strong>Schema drift</strong><div class="muted">customer.profile</div></div><strong>2 cols</strong></div>
+                  <div class="list-row"><div><strong>Volume anomaly</strong><div class="muted">payments.ingest</div></div><strong>-18%</strong></div>
+                </div>
+              </div>
+              <div class="panel network">
+                <svg viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M46 56L112 84L164 48L246 76L274 146L212 196L126 184L56 142L46 56Z" stroke="currentColor" stroke-opacity="0.35" stroke-width="2"/>
+                  <path d="M112 84L126 184M164 48L212 196M246 76L56 142" stroke="currentColor" stroke-opacity="0.28" stroke-width="2"/>
+                  <circle cx="46" cy="56" r="8" fill="currentColor"/>
+                  <circle cx="112" cy="84" r="10" fill="currentColor" fill-opacity="0.9"/>
+                  <circle cx="164" cy="48" r="9" fill="currentColor"/>
+                  <circle cx="246" cy="76" r="8" fill="currentColor"/>
+                  <circle cx="274" cy="146" r="12" fill="currentColor" fill-opacity="0.95"/>
+                  <circle cx="212" cy="196" r="10" fill="currentColor"/>
+                  <circle cx="126" cy="184" r="9" fill="currentColor" fill-opacity="0.88"/>
+                  <circle cx="56" cy="142" r="8" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="compat-band" id="approach">
+      <div class="container-wide reveal">
+        <div class="band">
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>Designed to fit your current observability stack.</h2>
+            <p>DataObs is not built around a single monitoring vendor. The implementation approach uses OpenTelemetry as a portable telemetry layer and maps observability signals into the tools your teams already operate today.</p>
+          </div>
+          <div class="tool-row" aria-label="Compatible tooling examples">
+            <div class="tool">Elastic</div>
+            <div class="tool">Grafana</div>
+            <div class="tool">OpenSearch</div>
+            <div class="tool">Datadog</div>
+            <div class="tool">OpenTelemetry</div>
+            <div class="tool">AWS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="signals">
+      <div class="container-wide">
+        <div class="section-head reveal">
+          <h2>What DataObs helps you see sooner.</h2>
+          <p>Most teams do not need more disconnected dashboards. They need signals that explain whether data is late, broken, incomplete, drifting, or risky, and they need those signals integrated into engineering workflows and operational ownership.</p>
+        </div>
+        <div class="signals-grid">
+          <article class="signal-card reveal">
+            <span class="signal-tag">Freshness</span>
+            <h3>Catch stale data before trust drops.</h3>
+            <p>Detect lagging tables, delayed pipelines, missed SLAs, and ingestion gaps before downstream dashboards, analytics, and business decisions are affected.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Quality</span>
+            <h3>Monitor the shape and validity of data.</h3>
+            <p>Track completeness, consistency, rule failures, and key validation checks so teams know when the data is available but still unsafe to use.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Lineage</span>
+            <h3>Understand where failures spread.</h3>
+            <p>Map upstream and downstream relationships to show impact radius, ownership, and which reports, services, or teams are exposed to a break.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Volume</span>
+            <h3>Spot silent anomalies in flow and scale.</h3>
+            <p>Catch row-count drops, spikes, partition gaps, and unusual movement patterns that often appear before a bigger data reliability incident becomes visible.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-wide delivery-grid">
+        <article class="story-card reveal">
+          <span class="eyebrow">Why OTEL-first</span>
+          <h2 style="font-size: var(--text-2xl); margin-top: 1rem;">Use OpenTelemetry as the backbone, not as a constraint.</h2>
+          <p style="margin-top: 1rem; color: var(--color-text-muted);">OpenTelemetry provides a common telemetry foundation for metrics, logs, traces, and events. That makes it a strong base for vendor-neutral observability design when clients already have different tools in place and want something interoperable, portable, and shaped by delivery reality rather than tooling ideology.</p>
+          <ul class="split-list">
+            <li>Avoid unnecessary vendor lock-in.</li>
+            <li>Reuse current observability investments.</li>
+            <li>Standardise telemetry collection and routing.</li>
+            <li>Build incrementally instead of replacing everything at once.</li>
+          </ul>
+        </article>
+        <article class="story-card reveal">
+          <span class="eyebrow">Best-fit environments</span>
+          <h2 style="font-size: var(--text-2xl); margin-top: 1rem;">Built for AWS-native and platform-heavy teams.</h2>
+          <p style="margin-top: 1rem; color: var(--color-text-muted);">DataObs fits best where infrastructure, pipelines, and data trust need to be monitored together — especially in AWS-native data platforms and mixed observability estates.</p>
+          <ul class="split-list">
+            <li>Lambda, Glue, EMR, S3, Athena, RDS, EC2, and EKS.</li>
+            <li>Airflow, dbt, Spark, streaming, CI/CD jobs, and batch workflows.</li>
+            <li>Elastic, Grafana, OpenSearch, Datadog, or mixed tooling.</li>
+            <li>Teams that need practical answers, not another platform pitch.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="delivery">
+      <div class="container-wide">
+        <div class="section-head reveal">
+          <h2>A consulting model with reusable patterns.</h2>
+          <p>DataObs is consultancy-led, but not one-off bespoke chaos. The model is to use repeatable OTEL-first patterns, practical health checks, observability design standards, and existing platform capabilities to build a solution that fits each client’s requirements and constraints.</p>
+        </div>
+        <div class="delivery-grid">
+          <div class="steps">
+            <article class="step reveal">
+              <small>Step 01</small>
+              <h3>Assess</h3>
+              <p>Review current tooling, telemetry gaps, data platform flows, ownership boundaries, noisy alerts, and the points where failure is still detected too late.</p>
+            </article>
+            <article class="step reveal">
+              <small>Step 02</small>
+              <h3>Instrument</h3>
+              <p>Add the right telemetry, checks, lineage signals, and data health logic using OTEL and the stack your teams already operate.</p>
+            </article>
+            <article class="step reveal">
+              <small>Step 03</small>
+              <h3>Operationalise</h3>
+              <p>Turn the design into dashboards, alerts, triage paths, ownership models, and workflows that engineering and data teams can actually run with.</p>
+            </article>
+          </div>
+          <div class="story-grid">
+            <article class="story-card reveal">
+              <h3>Data observability foundation</h3>
+              <p>Start with freshness, quality, volume, and lineage around the datasets and pipelines that matter most.</p>
+            </article>
+            <article class="story-card reveal">
+              <h3>Platform-aligned design</h3>
+              <p>Connect data observability with infrastructure, job, and service signals so teams can reduce cross-layer blind spots.</p>
+            </article>
+            <article class="story-card reveal">
+              <h3>Tool rationalisation</h3>
+              <p>Improve signal design and telemetry flow using the observability tools the client already owns and understands.</p>
+            </article>
+            <article class="story-card reveal">
+              <h3>Operational rollout</h3>
+              <p>Define alerting, escalation, stakeholder views, and reporting so the work becomes part of daily operations, not shelfware.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-wide">
+        <div class="section-head reveal">
+          <h2>Built on a wider observability model.</h2>
+          <p>The broader DataObs vision fits inside a larger observability framework that connects full stack observability, pipeline observability, data observability, and business observability across one telemetry foundation.</p>
+        </div>
+        <div class="signals-grid">
+          <article class="signal-card reveal">
+            <span class="signal-tag">Full stack</span>
+            <h3>What is happening in systems.</h3>
+            <p>Infrastructure, APM, tracing, logs, and operational telemetry provide the platform context behind data incidents.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Pipelines</span>
+            <h3>Are jobs and flows reliable.</h3>
+            <p>Batch, streaming, CI/CD, orchestration, retries, and SLAs show whether the delivery layer is healthy and predictable.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Data</span>
+            <h3>Is the data trustworthy.</h3>
+            <p>Freshness, quality, volume, schema, and lineage reveal whether downstream consumers should trust what they see.</p>
+          </article>
+          <article class="signal-card reveal">
+            <span class="signal-tag">Business</span>
+            <h3>What is the operational impact.</h3>
+            <p>Business context helps teams prioritise incidents by customer impact, reporting risk, and real operational consequence.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container-wide">
+        <div class="section-head reveal">
+          <h2>FAQ</h2>
+          <p>These are the first questions serious clients usually ask when they land on a specialist observability practice with an open, vendor-neutral approach.</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item reveal">
+            <h3>Is DataObs a product or a consultancy?</h3>
+            <p>DataObs is best positioned as a consultancy-led data observability practice with reusable OTEL-first implementation patterns, not as a closed platform that replaces a client’s current toolset.</p>
+          </article>
+          <article class="faq-item reveal">
+            <h3>Do clients need to adopt a new observability platform?</h3>
+            <p>No. The recommendation is to work with the tools already available in the client environment wherever practical, then improve telemetry quality, consistency, and signal design around them.</p>
+          </article>
+          <article class="faq-item reveal">
+            <h3>Which platforms does this fit best?</h3>
+            <p>The strongest fit is AWS-native data platforms and mixed observability estates using Elastic, Grafana, OpenSearch, Datadog, Kubernetes, and related monitoring stacks.</p>
+          </article>
+          <article class="faq-item reveal">
+            <h3>What should teams monitor first?</h3>
+            <p>Freshness, quality, lineage, volume anomalies, and practical operating visibility are usually the best starting point because they directly reduce data downtime and trust erosion.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container reveal">
+        <div class="cta">
+          <div>
+            <span class="eyebrow">Primary action</span>
+            <h2 style="font-size: var(--text-xl); margin-top: .85rem;">Build data observability around your requirements, not around a vendor pitch.</h2>
+            <p>If your teams already have observability tools in place but still lack clear answers on data freshness, lineage, quality, and trust, DataObs can help design and deliver a solution that fits the environment you already run.</p>
+          </div>
+          <a class="btn btn-primary" href="#contact">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container-wide contact-grid">
+        <article class="contact-card reveal">
+          <span class="eyebrow">Contact</span>
+          <h2 style="font-size: var(--text-2xl); margin-top: 1rem;">Start with a short architecture call.</h2>
+          <p style="margin-top: 1rem; color: var(--color-text-muted);">Use this section for your real contact details, calendar link, and lead flow. The ideal first conversation is about current tooling, operating constraints, and where observability is still failing to answer the right questions.</p>
+          <div class="contact-list">
+            <span>Vendor-neutral data observability for AWS-native and platform-heavy environments</span>
+            <a href="mailto:hello@dataobs.co.uk">hello@dataobs.co.uk</a>
+            <a href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener noreferrer">GitHub — DataObs</a>
+          </div>
+        </article>
+        <article class="contact-card reveal">
+          <h3 style="font-size: var(--text-xl); margin-bottom: 1rem;">Recommended next additions</h3>
+          <div class="list">
+            <div class="list-row"><div><strong>Real case studies</strong><div class="muted">Add architecture, outcomes, and before / after impact</div></div></div>
+            <div class="list-row"><div><strong>Founder profile</strong><div class="muted">Add your background, delivery style, and domain depth clearly</div></div></div>
+            <div class="list-row"><div><strong>Lead capture</strong><div class="muted">Add a proper form or a scheduling link</div></div></div>
+            <div class="list-row"><div><strong>Tooling page</strong><div class="muted">Show how Elastic, Grafana, OpenSearch, and Datadog fit the model</div></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container-wide footer-inner">
+      <div>DataObs — data observability built around your stack.</div>
+      <div>OTEL-first, vendor-neutral, consultancy-led delivery for modern data platforms.</div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const menuBtn = document.querySelector('.menu-btn');
+      const mobileNav = document.getElementById('mobile-nav');
+      let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+
+      function setIcon() {
+        toggle.innerHTML = theme === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3A7 7 0 0 0 21 12.79z"/></svg>';
+        toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+      }
+      setIcon();
+
+      toggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        setIcon();
+      });
+
+      menuBtn?.addEventListener('click', () => {
+        const open = mobileNav.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      document.querySelectorAll('#mobile-nav a').forEach(a => {
+        a.addEventListener('click', () => {
+          mobileNav.classList.remove('open');
+          menuBtn?.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('show');
+        });
+      }, { threshold: 0.16 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    })();
+  </script>
+</body>
+</html>

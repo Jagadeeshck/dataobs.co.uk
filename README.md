@@ -56,7 +56,9 @@ Because this is a plain static site, GitHub Pages can serve it directly without 
 
 ## GoDaddy DNS records
 
-In GoDaddy DNS management for `dataobs.co.uk`, configure GitHub Pages records.
+In GoDaddy DNS management for `dataobs.co.uk`, configure GitHub Pages records. These are public GitHub Pages routing records, not private DataObs server IP addresses. They are included here only as deployment notes so the domain can be configured without hunting through external documentation.
+
+If you prefer not to keep DNS values in the repository, remove the tables below and link to GitHub's official custom-domain documentation instead. The website itself only requires the root `CNAME` file and static assets to run on GitHub Pages; the DNS records must still be configured in GoDaddy.
 
 Recommended apex-domain records:
 

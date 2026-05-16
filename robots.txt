@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dataobs.co.uk/sitemap.xml

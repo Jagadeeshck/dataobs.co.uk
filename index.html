@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataObs | Data Observability Consultancy for AI and Cloud Data Platforms</title>
-  <meta name="description" content="DataObs helps teams design OTEL-first data observability across AWS data platforms, pipelines, AI workflows, Elastic, OpenSearch, Grafana, and SIEM-aligned operations.">
+  <title>DataObs | OTEL-first Data Observability for AI and Cloud Platforms</title>
+  <meta name="description" content="DataObs is a founder-led consultancy for OTEL-first data observability, cloud data platforms, Elastic, OpenSearch, Grafana, SIEM, AI agent telemetry, DataObs Platform and DPE delivery.">
   <link rel="canonical" href="https://dataobs.co.uk/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#eef7fb">
+  <meta name="theme-color" content="#020617">
 
-  <meta property="og:title" content="DataObs | Data Observability Consultancy for AI and Cloud Data Platforms">
-  <meta property="og:description" content="Founder-led consultancy for practical data observability, platform engineering, AI-era telemetry, DataObs accelerators, and DPE data platform delivery.">
+  <meta property="og:title" content="DataObs | OTEL-first Data Observability for AI and Cloud Platforms">
+  <meta property="og:description" content="Interactive, vendor-neutral data observability consultancy for platform, pipeline, AI, SIEM and data product teams.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dataobs.co.uk/">
   <meta property="og:site_name" content="DataObs">
@@ -18,7 +18,7 @@
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="DataObs | Data Observability Consultancy">
-  <meta name="twitter:description" content="OTEL-first data observability for pipelines, platforms, AI workflows, Elastic, OpenSearch, AWS, Grafana, and SIEM-aligned teams.">
+  <meta name="twitter:description" content="OTEL-first data observability for AWS, Elastic, OpenSearch, Grafana, AI workflows and DPE data platform delivery.">
 
   <link rel="icon" href="assets/dataobs-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -29,13 +29,14 @@
     "name": "DataObs",
     "url": "https://dataobs.co.uk/",
     "email": "hello@dataobs.co.uk",
-    "description": "DataObs is a founder-led consultancy providing data observability, platform engineering, and AI-era telemetry solutions.",
+    "description": "Founder-led consultancy for data observability, OpenTelemetry architecture, cloud data platform engineering, Elastic/OpenSearch implementation, SIEM-aligned telemetry and AI-era observability.",
     "areaServed": "GB",
     "serviceType": [
       "Data observability consultancy",
       "OpenTelemetry architecture",
-      "AWS data platform observability",
       "Elastic and OpenSearch implementation",
+      "AWS data platform observability",
+      "AI agent telemetry",
       "Data platform engineering"
     ]
   }
@@ -44,281 +45,262 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" data-header>
+  <header class="site-header">
     <div class="container nav-shell">
       <a class="brand" href="#top" aria-label="DataObs home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" role="img" focusable="false">
-            <path d="M24 4 42 14v20L24 44 6 34V14L24 4Z" fill="currentColor" opacity=".16"/>
-            <path d="M24 8 38 16v16L24 40 10 32V16L24 8Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
-            <path d="M15 20h18M15 28h18M24 11v26" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
-            <circle cx="15" cy="20" r="2.5" fill="currentColor"/><circle cx="33" cy="28" r="2.5" fill="currentColor"/>
-          </svg>
-        </span>
+        <span class="brand-mark">dObs</span>
         <span>
           <strong>DataObs</strong>
-          <small>Data observability consultancy</small>
+          <small>Observability architecture studio</small>
         </span>
       </a>
-
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="#platforms">Offerings</a>
+        <a href="#simulator">Simulator</a>
         <a href="#architecture">Architecture</a>
-        <a href="#about">About</a>
+        <a href="#offerings">Offerings</a>
+        <a href="#packages">Packages</a>
         <a href="#contact">Contact</a>
       </nav>
-
       <div class="nav-actions">
-        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
-          <span class="theme-icon" aria-hidden="true">☾</span>
-        </button>
-        <a class="btn btn-small btn-primary desktop-only" href="mailto:hello@dataobs.co.uk?subject=DataObs%20architecture%20call">Book a call</a>
-        <button class="icon-button menu-button" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
-          <span aria-hidden="true"></span>
-        </button>
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch to light theme" aria-pressed="true"><span class="theme-icon">☀</span></button>
+        <a class="btn btn-primary btn-small desktop-only" href="mailto:hello@dataobs.co.uk?subject=DataObs%20architecture%20review">Book architecture review</a>
+        <button class="icon-button menu-button" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu"><span></span></button>
       </div>
     </div>
-
-    <nav class="mobile-nav" id="mobile-menu" data-mobile-menu aria-label="Mobile navigation" hidden>
-      <a href="#services">Services</a>
-      <a href="#platforms">Offerings</a>
+    <nav class="mobile-nav" id="mobile-menu" data-mobile-menu hidden>
+      <a href="#simulator">Simulator</a>
       <a href="#architecture">Architecture</a>
-      <a href="#about">About</a>
+      <a href="#offerings">Offerings</a>
+      <a href="#packages">Packages</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero section" id="top" aria-labelledby="hero-title">
-      <div class="container hero-grid">
+    <section class="hero" id="top">
+      <div class="orb orb-one"></div>
+      <div class="orb orb-two"></div>
+      <div class="container hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">OTEL-first · vendor-neutral · AI-era ready</p>
-          <h1 id="hero-title">Data observability for AI-era data platforms</h1>
-          <p class="hero-lede">DataObs helps teams monitor the reliability, freshness, quality, lineage, and business impact of their data using the observability tools they already operate.</p>
-          <div class="hero-actions" aria-label="Primary calls to action">
-            <a class="btn btn-primary" href="mailto:hello@dataobs.co.uk?subject=DataObs%20architecture%20call&body=Hello%20DataObs%2C%0A%0AI%27d%20like%20to%20book%20an%20architecture%20call.%0A%0ACompany%3A%0ACurrent%20observability%20tools%3A%0AProblem%20summary%3A">Book an architecture call</a>
-            <a class="btn btn-secondary" href="#services">Explore services</a>
+          <div class="badge"><span></span> Vendor-neutral, engineering-led telemetry partner</div>
+          <h1>OTEL-first Data Observability for modern cloud and AI platforms.</h1>
+          <p>DataObs helps platform engineering and data teams stop guessing why pipelines fail, dashboards drift, AI costs spike, or warehouse data becomes untrusted.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#simulator">Interactive telemetry demo</a>
+            <a class="btn btn-secondary" href="#architecture">View architecture</a>
           </div>
-          <dl class="signal-strip" aria-label="Core capabilities">
-            <div><dt>Data trust</dt><dd>Freshness, quality, schema and lineage</dd></div>
-            <div><dt>Platform fit</dt><dd>AWS, Elastic, OpenSearch, Grafana</dd></div>
-            <div><dt>Delivery model</dt><dd>Assessment, architecture, build and handover</dd></div>
-          </dl>
+          <div class="hero-metrics" aria-label="Core DataObs outcomes">
+            <div><strong>4-pillar</strong><span>Full-stack, pipeline, data and business observability</span></div>
+            <div><strong>OTEL-native</strong><span>Portable telemetry design across existing tools</span></div>
+            <div><strong>AI-ready</strong><span>Agent, MCP, token and sensitive-data activity visibility</span></div>
+          </div>
         </div>
 
-        <div class="hero-card" aria-label="DataObs offering summary">
-          <div class="hero-card-header">
-            <span class="live-dot" aria-hidden="true"></span>
-            <strong>Observability operating model</strong>
+        <aside class="control-panel" aria-label="Consultancy proposal summary">
+          <div class="panel-title"><span class="pulse"></span> DataObs delivery console</div>
+          <div class="console-lines">
+            <p><span>[OK]</span> OTel Collector design aligned</p>
+            <p><span>[INFO]</span> Data product SLA model mapped</p>
+            <p><span>[WARN]</span> Schema drift visibility missing</p>
+            <p><span>[ACTION]</span> Route evidence into Elastic / OpenSearch</p>
           </div>
-          <div class="flow">
-            <div><span>01</span><strong>Detect</strong><small>Late, missing, drifting, or risky data</small></div>
-            <div><span>02</span><strong>Correlate</strong><small>Connect pipeline, platform, and business context</small></div>
-            <div><span>03</span><strong>Act</strong><small>Dashboards, alerts, runbooks, and ownership</small></div>
+          <div class="panel-grid">
+            <div><small>Primary stack</small><strong>Elastic · OpenSearch · Grafana</strong></div>
+            <div><small>Cloud fit</small><strong>AWS · GCP · Azure patterns</strong></div>
+            <div><small>Delivery</small><strong>Assess → Architect → Build → Handover</strong></div>
           </div>
-          <div class="mini-console">
-            <p><span>freshness</span> orders.hourly breached SLA</p>
-            <p><span>lineage</span> 4 downstream dashboards impacted</p>
-            <p><span>action</span> owner notified with runbook context</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="simulator-section section" id="simulator" aria-labelledby="simulator-title">
+      <div class="container preview-shell">
+        <div class="section-heading center">
+          <p class="eyebrow">Live-style preview</p>
+          <h2 id="simulator-title">Interactive OpenTelemetry pipeline simulator</h2>
+          <p>Click an incident type to see how DataObs frames data, platform, AI and security signals into one operating view. This is a browser-only static demo.</p>
+        </div>
+
+        <div class="simulator-card">
+          <div class="sim-controls" aria-label="Incident simulator controls">
+            <button type="button" class="sim-button active" data-sim="normal">Optimal baseline</button>
+            <button type="button" class="sim-button" data-sim="drift">Schema drift</button>
+            <button type="button" class="sim-button" data-sim="latency">Pipeline SLA delay</button>
+            <button type="button" class="sim-button" data-sim="token">AI token spike</button>
+            <button type="button" class="sim-button" data-sim="sensitive">Sensitive data access</button>
+          </div>
+
+          <div class="telemetry-flow" aria-label="Telemetry flow">
+            <div class="flow-node" data-node="source"><b>01</b><strong>Raw sources</strong><span>Kinesis · S3 · DBs · apps</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" data-node="process"><b>02</b><strong>Processing</strong><span>Airflow · dbt · Spark · Glue</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" data-node="observe"><b>03</b><strong>Observability</strong><span>OTel · Elastic · OpenSearch</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node" data-node="action"><b>04</b><strong>Action</strong><span>Alerts · runbooks · owners</span></div>
+          </div>
+
+          <div class="sim-output">
+            <div class="log-header"><span>SIMULATED OPEN-TELEMETRY CAPTURES LOG</span><strong data-sim-state>● NORMAL</strong></div>
+            <div class="log-lines" data-sim-log>
+              <p><span>[OK]</span> OTel collector receiving pipeline telemetry on 0.0.0.0:4317</p>
+              <p><span>[OK]</span> Dataset freshness checks passing for priority data products</p>
+              <p><span>[INFO]</span> Business SLA dashboard updated with latest lineage context</p>
+            </div>
+            <div class="remedy" data-sim-remedy>
+              <strong>Observation remedy:</strong> Baseline telemetry confirms data movement, ownership, quality checks and business SLA context are visible.
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section problem-band" aria-labelledby="problem-title">
-      <div class="container split-layout">
-        <div>
-          <p class="eyebrow">The problem</p>
-          <h2 id="problem-title">Modern data platforms are harder to trust</h2>
-        </div>
-        <div class="problem-list">
-          <p>Dashboards can look healthy while the data behind them is late, incomplete, duplicated, or no longer aligned to the business process.</p>
-          <p>AI systems and automated agents increase the risk because they depend on reliable inputs, governed tool access, and observable decisions.</p>
-          <p>DataObs connects data reliability signals with platform telemetry so teams can move from “something is wrong” to “this dataset, owner, job, and business SLA are affected.”</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="services" aria-labelledby="services-title">
+    <section class="section architecture-section" id="architecture" aria-labelledby="architecture-title">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Services</p>
-          <h2 id="services-title">Practical consultancy services for data, platform, and AI teams</h2>
-          <p>Start with a focused assessment, then implement the telemetry, dashboards, alerts, and handover model your teams can operate.</p>
+          <p class="eyebrow">Proper reference architecture</p>
+          <h2 id="architecture-title">From signal sources to business action</h2>
+          <p>The target architecture is not just a dashboard. It is a telemetry operating model that connects cloud infrastructure, data pipelines, data quality, AI activity, SIEM signals and business impact.</p>
         </div>
-        <div class="card-grid services-grid">
-          <article class="card"><h3>Data Observability Assessment</h3><p>Review data products, pipelines, current tools, alert noise, ownership gaps, and the highest-risk trust issues.</p></article>
-          <article class="card"><h3>OpenTelemetry Architecture</h3><p>Design OTEL collector pipelines, attributes, routing, enrichment, and standards that work across vendors.</p></article>
-          <article class="card"><h3>AWS Data Platform Observability</h3><p>Instrument Glue, Lambda, Step Functions, S3, EMR, Athena, Redshift, EKS, EC2, and related workflows.</p></article>
-          <article class="card"><h3>Elastic and OpenSearch Delivery</h3><p>Build useful observability views, index patterns, alerting rules, SIEM-aligned detections, and dashboards.</p></article>
-          <article class="card"><h3>Pipeline and Data Quality Monitoring</h3><p>Track freshness, completeness, volume anomalies, schema drift, retries, job failures, and SLA breaches.</p></article>
-          <article class="card"><h3>AI and Security Observability</h3><p>Expose AI agent activity, MCP/tool usage, sensitive data access, automation behaviour, and compliance evidence.</p></article>
+
+        <div class="architecture-map" aria-label="DataObs reference architecture map">
+          <div class="arch-column">
+            <div class="arch-top">Sources</div>
+            <ul>
+              <li>AWS services: S3, Glue, Lambda, Step Functions, EMR, Athena, Redshift</li>
+              <li>Data engines: Spark, dbt, Airflow, Kafka, databases</li>
+              <li>AI activity: agents, MCP servers, tool calls, model inputs</li>
+              <li>Security events: sensitive data access, IAM, audit logs</li>
+            </ul>
+          </div>
+          <div class="arch-link">OTLP / APIs / logs / metrics / traces</div>
+          <div class="arch-column">
+            <div class="arch-top">Collection</div>
+            <ul>
+              <li>OpenTelemetry Collector / Grafana Alloy</li>
+              <li>Elastic Agent, Fluent Bit, Beats, CloudWatch exporters</li>
+              <li>Custom probes for freshness, schema and lineage checks</li>
+              <li>DPE deployment hooks and infrastructure metadata</li>
+            </ul>
+          </div>
+          <div class="arch-link">enrich · batch · route · normalise</div>
+          <div class="arch-column highlight">
+            <div class="arch-top">DataObs intelligence layer</div>
+            <ul>
+              <li>Four-pillar model: full-stack, pipeline, data, business</li>
+              <li>Ownership, SLA, environment and business service context</li>
+              <li>Freshness, quality, volume, schema and lineage correlation</li>
+              <li>AI token, tool usage and sensitive-data behaviour signals</li>
+            </ul>
+          </div>
+          <div class="arch-link">index · analyse · detect</div>
+          <div class="arch-column">
+            <div class="arch-top">Platforms</div>
+            <ul>
+              <li>Elastic and Kibana</li>
+              <li>OpenSearch and Dashboards</li>
+              <li>Grafana, Tempo, Loki, Mimir</li>
+              <li>CloudWatch, Datadog, SIEM and ITSM workflows</li>
+            </ul>
+          </div>
+          <div class="arch-link">alert · report · escalate</div>
+          <div class="arch-column">
+            <div class="arch-top">Action</div>
+            <ul>
+              <li>Operational dashboards and executive views</li>
+              <li>Detection rules, alerts, runbooks and owner routing</li>
+              <li>Incident timelines and impact radius</li>
+              <li>Compliance evidence and service review packs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="architecture-deliverables">
+          <article><strong>Assessment output</strong><span>Current-state map, telemetry gaps, risk register and 30/60/90-day plan.</span></article>
+          <article><strong>Build output</strong><span>Collector config, enrichment model, dashboards, rules, probes and IaC-ready patterns.</span></article>
+          <article><strong>Handover output</strong><span>Runbooks, ownership model, alert tuning guide, operating rhythm and evidence pack.</span></article>
         </div>
       </div>
     </section>
 
-    <section class="section section-muted" id="platforms" aria-labelledby="platforms-title">
+    <section class="section offerings-section" id="offerings" aria-labelledby="offerings-title">
       <div class="container">
-        <div class="section-heading">
+        <div class="section-heading center">
           <p class="eyebrow">Offerings</p>
-          <h2 id="platforms-title">Consultancy backed by reusable platform accelerators</h2>
-          <p>DataObs is the consulting practice. DataObs Platform and DPE are reusable engineering accelerators that can support delivery when they fit the client problem.</p>
+          <h2 id="offerings-title">Consultancy backed by reusable accelerators</h2>
+          <p>DataObs.co.uk is the public consulting site. The DataObs and DPE repositories are positioned as delivery accelerators rather than public SaaS claims.</p>
         </div>
         <div class="offering-grid">
           <article class="offering-card">
-            <span>Consulting practice</span>
+            <span>01</span>
             <h3>DataObs Advisory and Delivery</h3>
-            <p>Founder-led assessment, architecture, implementation, and operational handover for data observability initiatives.</p>
-            <ul>
-              <li>Observability strategy and roadmap</li>
-              <li>Dashboards, alerts, runbooks and incident workflow</li>
-              <li>Vendor-neutral design using current tooling</li>
-            </ul>
+            <p>Founder-led consulting for assessment, architecture, implementation, alert design and operational handover.</p>
+            <ul><li>Data observability strategy</li><li>OTEL collector and routing architecture</li><li>Dashboards, rules and runbooks</li></ul>
+          </article>
+          <article class="offering-card featured">
+            <span>02</span>
+            <h3>DataObs Platform Accelerator</h3>
+            <p>Cloud-agnostic observability blueprint covering full-stack, pipeline, data and business observability.</p>
+            <ul><li>Freshness, quality, schema and lineage patterns</li><li>Elastic, OpenSearch and Grafana paths</li><li>Alerting integrations and production templates</li></ul>
           </article>
           <article class="offering-card">
-            <span>Platform accelerator</span>
-            <h3>DataObs Platform</h3>
-            <p>A cloud-agnostic observability blueprint for infrastructure, pipelines, data quality, freshness, lineage, and business impact.</p>
-            <ul>
-              <li>Four-pillar model: full-stack, pipeline, data, business</li>
-              <li>OpenTelemetry-native instrumentation patterns</li>
-              <li>Elastic, OpenSearch, Grafana and alerting integration paths</li>
-            </ul>
-          </article>
-          <article class="offering-card">
-            <span>Engineering accelerator</span>
+            <span>03</span>
             <h3>DPE — Data Platform Engine</h3>
-            <p>A modular data platform engineering framework for provisioning cloud data platform components with infrastructure as code.</p>
-            <ul>
-              <li>AWS, GCP and Azure-oriented deployment patterns</li>
-              <li>Terraform, Ansible and configuration management foundations</li>
-              <li>Kafka, databases, object storage, Spark, search and observability building blocks</li>
-            </ul>
+            <p>Data platform engineering accelerator for modular cloud platform provisioning with infrastructure as code.</p>
+            <ul><li>AWS, GCP and Azure deployment patterns</li><li>Terraform and Ansible foundations</li><li>Kafka, databases, object storage, Spark and search layers</li></ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="solutions" aria-labelledby="solutions-title">
+    <section class="section packages-section" id="packages" aria-labelledby="packages-title">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Solutions</p>
-          <h2 id="solutions-title">Signals that make data reliability visible</h2>
-          <p>DataObs groups telemetry by the questions your teams need to answer during incidents and service reviews.</p>
+          <p class="eyebrow">Consulting packages</p>
+          <h2 id="packages-title">Focused SOW packages designed for velocity</h2>
+          <p>These are example engagement packages. They should be tailored after a discovery call and should not be read as fixed product pricing.</p>
         </div>
-        <div class="solution-groups">
-          <article><h3>Data reliability</h3><p>Freshness, completeness, volume anomalies, schema drift, duplicate records, and quality rule failures.</p></article>
-          <article><h3>Pipeline reliability</h3><p>Failed jobs, retries, dependency failures, orchestration delays, missing partitions, and SLA breaches.</p></article>
-          <article><h3>Operational impact</h3><p>Lineage, ownership, impacted dashboards, business service context, priority mapping, and runbook routing.</p></article>
-          <article><h3>Security and AI</h3><p>Sensitive data access, AI agent activity, MCP/tool usage, automation behaviour, and compliance evidence.</p></article>
+        <div class="package-grid">
+          <article><span>01</span><h3>Data Observability Assessment</h3><p>Two-to-four week review of priority data products, telemetry gaps, data trust risks, platform ownership and alert quality.</p><small>Deliverable: architecture review, risk map, telemetry backlog and roadmap.</small></article>
+          <article><span>02</span><h3>OTEL Foundation Build</h3><p>Design and implement collector pipelines, semantic attributes, routing, enrichment and baseline dashboards.</p><small>Deliverable: collector config, dashboards, standards and runbook.</small></article>
+          <article><span>03</span><h3>Elastic / OpenSearch DataOps</h3><p>Implement observability index patterns, SIEM-aligned detections, pipeline alerts and data product dashboards.</p><small>Deliverable: templates, queries, dashboards, alert rules and evidence views.</small></article>
+          <article><span>04</span><h3>DPE Platform Delivery Review</h3><p>Assess or bootstrap modular data platform deployment patterns using DPE concepts and IaC delivery guardrails.</p><small>Deliverable: platform blueprint, IaC backlog and observability integration plan.</small></article>
         </div>
       </div>
     </section>
 
-    <section class="section section-muted" id="architecture" aria-labelledby="architecture-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Reference architecture</p>
-          <h2 id="architecture-title">A simple flow from telemetry to action</h2>
-          <p>The architecture is deliberately vendor-neutral. It keeps the data observability model portable while reusing tools the client already operates.</p>
-        </div>
-        <div class="architecture-flow">
-          <article><span>Sources</span><p>AWS, databases, pipelines, apps, Spark, Airflow, dbt, AI agents, MCP servers.</p></article>
-          <article><span>Collection</span><p>OpenTelemetry Collector, Elastic Agent, Fluent Bit, APIs, workflow probes.</p></article>
-          <article><span>Enrichment</span><p>Dataset owner, SLA, environment, lineage, business service, risk context.</p></article>
-          <article><span>Platforms</span><p>Elastic, OpenSearch, Grafana, Datadog, CloudWatch, SIEM workflows.</p></article>
-          <article><span>Action</span><p>Dashboards, alerts, reports, runbooks, evidence packs, incident response.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="ai-era" aria-labelledby="ai-title">
-      <div class="container split-layout">
+    <section class="section roi-section" id="roi" aria-labelledby="roi-title">
+      <div class="container roi-card">
         <div>
-          <p class="eyebrow">AI-era observability</p>
-          <h2 id="ai-title">AI systems need observable data and observable actions</h2>
-          <p>DataObs helps teams trace the path from source data through transformations, model inputs, agent/tool actions, and business outcomes.</p>
+          <p class="eyebrow">Cost-benefit metric</p>
+          <h2 id="roi-title">Project your observability ROI</h2>
+          <p>Estimate the operational cost of unresolved pipeline incidents. This runs only in the browser and is for discussion, not financial advice.</p>
         </div>
-        <ul class="feature-list" aria-label="AI-era observability focus areas">
-          <li>Model input and data product reliability</li>
-          <li>Agent activity, tool usage, and permission visibility</li>
-          <li>MCP/server interactions and automation behaviour</li>
-          <li>Security signals around sensitive data access</li>
-          <li>Business impact when data or automation fails</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section section-muted" id="engagements" aria-labelledby="engagements-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Example engagement patterns</p>
-          <h2 id="engagements-title">Focused delivery without fake client claims</h2>
-          <p>These are example engagement patterns that can be adapted to the client environment.</p>
-        </div>
-        <div class="card-grid engagement-grid">
-          <article class="card accent"><h3>AWS data lake observability foundation</h3><p>Dataset SLAs, pipeline telemetry, CloudWatch routing, dashboards, and ownership mapping.</p></article>
-          <article class="card accent"><h3>Elastic-based pipeline monitoring</h3><p>Quality checks, freshness, schema changes, index templates, alerts, and operational dashboards.</p></article>
-          <article class="card accent"><h3>DPE data platform assessment</h3><p>Review platform components, IaC readiness, deployment flow, observability baseline, and operational gaps.</p></article>
-          <article class="card accent"><h3>AI agent activity proof of concept</h3><p>Instrument tool calls, data access, automation paths, decision points, and operational outcomes.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="impact" aria-labelledby="impact-title">
-      <div class="container impact-card">
-        <div>
-          <p class="eyebrow">Impact estimator</p>
-          <h2 id="impact-title">Estimate the cost of unresolved data incidents</h2>
-          <p>This lightweight calculator runs only in your browser. It is designed for conversation, not financial advice.</p>
-        </div>
-        <form class="impact-form" data-impact-form>
-          <label>Incidents per month<input type="number" min="0" step="1" name="incidents" value="5"></label>
-          <label>Average hours per incident<input type="number" min="0" step="0.5" name="hours" value="4"></label>
-          <label>People involved<input type="number" min="1" step="1" name="people" value="6"></label>
-          <label>Blended hourly cost (£)<input type="number" min="0" step="5" name="rate" value="85"></label>
+        <form class="roi-form" data-impact-form>
+          <label>Monthly incidents<input type="range" min="1" max="30" name="incidents" value="5"><span data-range-value="incidents">5</span></label>
+          <label>MTTR hours<input type="range" min="1" max="12" name="hours" value="4"><span data-range-value="hours">4</span></label>
+          <label>People involved<input type="range" min="1" max="20" name="people" value="8"><span data-range-value="people">8</span></label>
+          <label>Hourly cost (£)<input type="range" min="50" max="200" step="5" name="rate" value="85"><span data-range-value="rate">85</span></label>
         </form>
-        <div class="impact-result" aria-live="polite">
-          <span>Estimated monthly operational cost</span>
-          <strong data-impact-output>£10,200</strong>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-muted" id="about" aria-labelledby="about-title">
-      <div class="container split-layout">
-        <div>
-          <p class="eyebrow">About</p>
-          <h2 id="about-title">Founder-led, specialist, and hands-on</h2>
-        </div>
-        <div class="prose-card">
-          <p>DataObs is a founder-led specialist consultancy focused on practical data observability. It is built from hands-on platform engineering experience across cloud infrastructure, Elastic and OpenSearch, AWS data platforms, SAS environments, infrastructure automation, SIEM, and enterprise data operations.</p>
-          <p>The approach is simple: understand the data product risk, design the telemetry path, implement the observability foundation, and help teams operate it with confidence.</p>
-        </div>
+        <div class="roi-output"><span>Estimated annual engineering delay cost</span><strong data-impact-output>£163,200</strong><small>Reduce incident frequency and MTTR by improving signal quality, ownership and triage paths.</small></div>
       </div>
     </section>
 
     <section class="section contact-section" id="contact" aria-labelledby="contact-title">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Book an architecture call</h2>
-          <p>Share your current tools, platform context, and the reliability problem you want to solve.</p>
-          <div class="contact-options">
-            <a class="btn btn-primary" href="mailto:hello@dataobs.co.uk?subject=DataObs%20architecture%20call">hello@dataobs.co.uk</a>
-            <a class="btn btn-secondary" href="#platforms">Review offerings</a>
-          </div>
+      <div class="container contact-card">
+        <div class="contact-copy">
+          <p class="eyebrow">Book a call</p>
+          <h2 id="contact-title">Review your data observability architecture</h2>
+          <p>Send your current tooling, cloud platform and main reliability challenge. The static form opens your email client; no form data is stored by this site.</p>
         </div>
         <form class="contact-form" data-contact-form action="mailto:hello@dataobs.co.uk" method="post" enctype="text/plain">
-          <p class="form-note">This static form opens your email client. No form data is stored by this website.</p>
           <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Company<input name="company" autocomplete="organization"></label>
-          <label>Email<input type="email" name="email" autocomplete="email" required></label>
-          <label>Current observability tools<input name="tools" placeholder="Elastic, OpenSearch, Grafana, Datadog, CloudWatch..."></label>
-          <label>Problem summary<textarea name="summary" rows="5" required placeholder="What needs to become observable?"></textarea></label>
-          <button class="btn btn-primary" type="submit">Create email enquiry</button>
-          <a class="mailto-fallback" href="mailto:hello@dataobs.co.uk?subject=DataObs%20enquiry">Mailto fallback: hello@dataobs.co.uk</a>
+          <label>Business email<input type="email" name="email" autocomplete="email" required></label>
+          <label>Company / team<input name="company" autocomplete="organization"></label>
+          <label>Current tools<input name="tools" placeholder="Elastic, OpenSearch, Grafana, Datadog, CloudWatch..."></label>
+          <label class="wide">Problem summary<textarea name="summary" rows="4" required placeholder="What needs to become observable?"></textarea></label>
+          <button class="btn btn-primary wide" type="submit">Create email enquiry</button>
+          <a class="mailto-fallback wide" href="mailto:hello@dataobs.co.uk?subject=DataObs%20architecture%20review">hello@dataobs.co.uk</a>
         </form>
       </div>
     </section>
@@ -326,13 +308,8 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <p>© <span data-year></span> DataObs. Specialist data observability consultancy.</p>
-      <nav aria-label="Footer navigation">
-        <a href="#services">Services</a>
-        <a href="#platforms">Offerings</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <p>© <span data-year></span> DataObs. OTEL-first data observability consultancy.</p>
+      <nav aria-label="Footer navigation"><a href="#simulator">Simulator</a><a href="#architecture">Architecture</a><a href="#offerings">Offerings</a><a href="#contact">Contact</a></nav>
     </div>
   </footer>
 

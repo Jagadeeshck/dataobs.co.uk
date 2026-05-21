@@ -5,6 +5,8 @@
   const mobileMenu = document.querySelector('[data-mobile-menu]');
   const year = document.querySelector('[data-year]');
   const form = document.querySelector('[data-contact-form]');
+  const impactForm = document.querySelector('[data-impact-form]');
+  const impactOutput = document.querySelector('[data-impact-output]');
 
   const savedTheme = localStorage.getItem('dataobs-theme');
   const initialTheme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : 'light';
@@ -75,4 +77,22 @@
 
     window.location.href = 'mailto:hello@dataobs.co.uk?subject=' + subject + '&body=' + body;
   });
+
+  function updateImpactEstimate() {
+    if (!impactForm || !impactOutput) return;
+    const data = new FormData(impactForm);
+    const incidents = Math.max(0, Number(data.get('incidents')) || 0);
+    const hours = Math.max(0, Number(data.get('hours')) || 0);
+    const people = Math.max(1, Number(data.get('people')) || 1);
+    const rate = Math.max(0, Number(data.get('rate')) || 0);
+    const monthlyCost = incidents * hours * people * rate;
+    impactOutput.textContent = new Intl.NumberFormat('en-GB', {
+      style: 'currency',
+      currency: 'GBP',
+      maximumFractionDigits: 0
+    }).format(monthlyCost);
+  }
+
+  impactForm?.addEventListener('input', updateImpactEstimate);
+  updateImpactEstimate();
 })();

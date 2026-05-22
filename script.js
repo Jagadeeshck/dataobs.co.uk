@@ -1,189 +1,50 @@
-(function () {
-  const root = document.documentElement;
-  const themeToggle = document.querySelector('[data-theme-toggle]');
-  const menuToggle = document.querySelector('[data-menu-toggle]');
-  const mobileMenu = document.querySelector('[data-mobile-menu]');
-  const year = document.querySelector('[data-year]');
-  const form = document.querySelector('[data-contact-form]');
-  const impactForm = document.querySelector('[data-impact-form]');
-  const impactOutput = document.querySelector('[data-impact-output]');
-  const simButtons = document.querySelectorAll('[data-sim]');
-  const simState = document.querySelector('[data-sim-state]');
-  const simLog = document.querySelector('[data-sim-log]');
-  const simRemedy = document.querySelector('[data-sim-remedy]');
-  const flowNodes = document.querySelectorAll('[data-node]');
+const $ = (s, p = document) => p.querySelector(s);
+const el = (t, c, h='') => { const n = document.createElement(t); if (c) n.className = c; n.innerHTML = h; return n; };
 
-  const savedTheme = localStorage.getItem('dataobs-theme');
-  const initialTheme = savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : 'dark';
-  root.setAttribute('data-theme', initialTheme);
+const archStates = {
+  data: { title: 'Data reliability', desc: 'Prioritize freshness, quality, and schema integrity tied to ownership and SLA.', events:['freshness_miss','schema_drift','quality_drop'], actions:['Targeted alert','Owner routing','Quality runbook'], layers:[0,2,4] },
+  pipeline: { title: 'Pipeline reliability', desc: 'Track retries, lag, and job failures with lineage and business context.', events:['airflow_retry_storm','kafka_lag','dbt_failure'], actions:['Incident routing','Backlog issue','Pipeline dashboard'], layers:[0,1,4] },
+  ai: { title: 'AI activity', desc: 'Observe agent and MCP tool data movement, token spikes, and policy boundaries.', events:['agent_token_spike','rag_latency_jump','mcp_tool_access'], actions:['Access review','Prompt/runbook update','Security signal'], layers:[0,2,3] },
+  security: { title: 'Security & compliance', desc: 'Correlate sensitive-data access with user, service, and evidence workflow.', events:['pii_access','privilege_jump','policy_violation'], actions:['SIEM case','Evidence pack','Compliance dashboard'], layers:[1,2,3] },
+  business: { title: 'Business impact', desc: 'Map technical telemetry to service health and reporting commitments.', events:['orders_sla_risk','finance_feed_delay','dashboard_staleness'], actions:['Exec view','Priority escalation','Change freeze'], layers:[2,3,4] }
+};
+const layerNames = ['Signal Sources','Collection','DataObs Intelligence Layer','Observability Platforms','Action'];
+const tabs = [ ['data','Data reliability'], ['pipeline','Pipeline reliability'], ['ai','AI activity'], ['security','Security & compliance'], ['business','Business impact'] ];
+const tabRow = $('#archTabs'), detail = $('#archDetail'), diagram = $('#archDiagram');
+let active = 'data';
+function renderArch(){
+  tabRow.innerHTML='';
+  tabs.forEach(([k,label])=>{ const b = el('button', k===active?'active':'', label); b.onclick=()=>{active=k; renderArch();}; tabRow.appendChild(b); });
+  diagram.innerHTML=''; layerNames.forEach((l,i)=> diagram.appendChild(el('div',`arch-layer ${archStates[active].layers.includes(i)?'active':''}`,`<strong>Layer ${i+1}:</strong> ${l}`)));
+  const s = archStates[active];
+  detail.innerHTML = `<h3>${s.title}</h3><p>${s.desc}</p><p><strong>Example events:</strong> ${s.events.join(' · ')}</p><p><strong>Recommended actions:</strong> ${s.actions.join(' · ')}</p>`;
+}
+renderArch();
 
-  function updateThemeButton() {
-    if (!themeToggle) return;
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
-    themeToggle.setAttribute('aria-pressed', String(isDark));
-    const icon = themeToggle.querySelector('.theme-icon');
-    if (icon) icon.textContent = isDark ? '☀' : '☾';
-  }
+$('#themeToggle').onclick=()=>document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';
+$('.menu-btn').onclick=(e)=>{ const nav=$('#site-nav'); const open=nav.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded',open); };
 
-  updateThemeButton();
+const dpe = ['Choose cloud (AWS · GCP · Azure)','Choose components (Kafka, SQL, object storage, Spark)','Generate IaC blueprint','Deploy platform baseline','Attach observability profile'];
+$('#dpeFlow').append(...dpe.map(s=>el('div','step',s)));
 
-  themeToggle?.addEventListener('click', function () {
-    const nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', nextTheme);
-    localStorage.setItem('dataobs-theme', nextTheme);
-    updateThemeButton();
-  });
+const solutions=['Data Reliability','Pipeline Observability','AI Agent Observability','Elastic / OpenSearch Observability','SIEM and Compliance Observability','Data Platform Engineering','Business SLA Observability','Tool Consolidation and Telemetry Routing'];
+$('#solutionsGrid').append(...solutions.map(t=>el('article','solution',`<h3>${t}</h3><p>Reduce blind spots and connect data health to business impact.</p><ul><li>Faster detection</li><li>Clear ownership</li><li>Actionable routing</li></ul>`)));
 
-  function closeMenu() {
-    if (!mobileMenu || !menuToggle) return;
-    mobileMenu.hidden = true;
-    document.body.classList.remove('menu-open');
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Open menu');
-  }
+const story=[['Signal detected','orders.hourly freshness breach'],['Context added','Owner, SLA, lineage, upstream job, downstream dashboard'],['Impact calculated','Business service and reporting impact'],['Action routed','Alert, runbook, incident ticket, evidence pack'],['Learning captured','Backlog item, dashboard update, rule tuning']];
+$('#timeline').append(...story.map(([h,p])=>el('div','story-step',`<h3>${h}</h3><p>${p}</p>`)));
 
-  menuToggle?.addEventListener('click', function () {
-    if (!mobileMenu) return;
-    const isOpen = mobileMenu.hidden === false;
-    mobileMenu.hidden = isOpen;
-    document.body.classList.toggle('menu-open', !isOpen);
-    menuToggle.setAttribute('aria-expanded', String(!isOpen));
-    menuToggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
-  });
+const packages=['Observability Assessment Sprint','OTEL Foundation Build','Elastic / OpenSearch DataOps Build','AI Agent Telemetry Proof of Concept','DPE Data Platform Review','SIEM and Compliance Evidence Pack'];
+$('#packages').append(...packages.map(p=>el('article','package',`<h3>${p}</h3><p><strong>Best for:</strong> teams starting focused observability delivery.</p><p><strong>What is delivered:</strong> architecture, implementation plan, and runbook pattern.</p><p><strong>Typical outputs:</strong></p><ul><li>Current-state map</li><li>Target blueprint</li><li>Operable handover assets</li></ul><a href="#contact" class="btn btn-secondary">Discuss this package</a>`)));
 
-  mobileMenu?.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
+const chipGroups={Cloud:['AWS','Azure','GCP'],Data:['S3','Glue','EMR','Athena','Redshift','Kafka','Spark','dbt','Airflow','PostgreSQL','MySQL'],Observability:['OpenTelemetry','Elastic','OpenSearch','Grafana','Datadog','CloudWatch','Prometheus'],'Security & workflow':['SIEM','ServiceNow','PagerDuty','Slack','Jira'],AI:['LLM apps','AI agents','MCP tools','RAG pipelines','feature stores']};
+Object.entries(chipGroups).forEach(([k,v])=>$('#chips').appendChild(el('div','chip-group',`<h3>${k}</h3>${v.map(c=>`<span class="chip">${c}</span>`).join('')}`)));
 
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') closeMenu();
-  });
+function calc(){
+  const i=+$('#incidents').value,h=+$('#hours').value,p=+$('#people').value,r=+$('#rate').value,red=+$('#reduction').value/100;
+  const annual=i*h*p*r*12, savings=annual*red, recovered=i*h*p*12*red;
+  const suggestion = i>20?'Observability Assessment Sprint + OTEL Foundation Build':'Architecture review + targeted accelerator setup';
+  $('#calcOut').innerHTML=`<p><strong>Current annual operational cost:</strong> £${annual.toLocaleString()}</p><p><strong>Potential annual savings:</strong> £${Math.round(savings).toLocaleString()}</p><p><strong>Hours recovered:</strong> ${Math.round(recovered).toLocaleString()} / year</p><p><strong>Suggested first engagement:</strong> ${suggestion}</p>`;
+}
+['incidents','hours','people','rate','reduction'].forEach(id=>$('#'+id).addEventListener('input',calc)); calc();
 
-  if (year) year.textContent = String(new Date().getFullYear());
-
-  const simulations = {
-    normal: {
-      label: '● NORMAL',
-      node: null,
-      severity: '',
-      lines: [
-        ['[OK]', 'OTel collector receiving pipeline telemetry on 0.0.0.0:4317'],
-        ['[OK]', 'Dataset freshness checks passing for priority data products'],
-        ['[INFO]', 'Business SLA dashboard updated with latest lineage context']
-      ],
-      remedy: 'Baseline telemetry confirms data movement, ownership, quality checks and business SLA context are visible.'
-    },
-    drift: {
-      label: '● SCHEMA DRIFT',
-      node: 'process',
-      severity: 'alert',
-      lines: [
-        ['[CRITICAL]', "Schema drift detected: customer_profile.loyal_customer_id type changed"],
-        ['[INFO]', 'Impacted downstream models: revenue_daily, churn_features, exec_dashboard'],
-        ['[ACTION]', 'Quarantine route and owner notification prepared with lineage context']
-      ],
-      remedy: 'DataObs correlates schema drift with impacted datasets, owners and business dashboards instead of leaving the failure buried in pipeline logs.'
-    },
-    latency: {
-      label: '● SLA DELAY',
-      node: 'process',
-      severity: 'warn',
-      lines: [
-        ['[WARN]', "Airflow task run_dbt_assertions exceeded SLA threshold"],
-        ['[INFO]', 'Freshness lag now 2h 14m for orders.hourly'],
-        ['[ACTION]', 'PagerDuty/Slack payload includes dataset owner and runbook link']
-      ],
-      remedy: 'The platform converts task delay into data product freshness risk and sends triage-ready context to the correct owner.'
-    },
-    token: {
-      label: '● AI TOKEN SPIKE',
-      node: 'observe',
-      severity: 'warn',
-      lines: [
-        ['[WARN]', 'LLM endpoint token consumption +340% over baseline'],
-        ['[INFO]', 'Agent workflow traced to feature_enrichment_tool call path'],
-        ['[ACTION]', 'Cost and usage anomaly linked to business workflow and model input source']
-      ],
-      remedy: 'AI-era observability connects token, model, tool and data-product context so cost spikes and unsafe automation paths can be investigated.'
-    },
-    sensitive: {
-      label: '● SENSITIVE ACCESS',
-      node: 'source',
-      severity: 'alert',
-      lines: [
-        ['[CRITICAL]', 'Sensitive dataset access outside expected service account pattern'],
-        ['[INFO]', 'IAM identity, query source and dataset classification attached'],
-        ['[ACTION]', 'SIEM-aligned evidence event routed into Elastic/OpenSearch detection view']
-      ],
-      remedy: 'Security telemetry is treated as part of data observability, giving compliance teams evidence around who accessed sensitive data and why.'
-    }
-  };
-
-  function setSimulation(type) {
-    const sim = simulations[type] || simulations.normal;
-    simButtons.forEach(function (button) {
-      button.classList.toggle('active', button.getAttribute('data-sim') === type);
-    });
-    flowNodes.forEach(function (node) {
-      node.classList.remove('alert', 'warn');
-      if (sim.node && node.getAttribute('data-node') === sim.node && sim.severity) node.classList.add(sim.severity);
-    });
-    if (simState) simState.textContent = sim.label;
-    if (simLog) {
-      simLog.innerHTML = sim.lines.map(function (line) {
-        return '<p><span>' + line[0] + '</span> ' + line[1] + '</p>';
-      }).join('');
-    }
-    if (simRemedy) simRemedy.innerHTML = '<strong>Observation remedy:</strong> ' + sim.remedy;
-  }
-
-  simButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      setSimulation(button.getAttribute('data-sim'));
-    });
-  });
-
-  form?.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const data = new FormData(form);
-    const subject = encodeURIComponent('DataObs architecture review enquiry');
-    const body = encodeURIComponent([
-      'Hello DataObs,',
-      '',
-      'I would like to discuss a data observability architecture review.',
-      '',
-      'Name: ' + (data.get('name') || ''),
-      'Company or team: ' + (data.get('company') || ''),
-      'Email: ' + (data.get('email') || ''),
-      'Current observability tools: ' + (data.get('tools') || ''),
-      '',
-      'What we would like to improve:',
-      data.get('summary') || ''
-    ].join('\n'));
-
-    window.location.href = 'mailto:hello@dataobs.co.uk?subject=' + subject + '&body=' + body;
-  });
-
-  function updateImpactEstimate() {
-    if (!impactForm || !impactOutput) return;
-    const data = new FormData(impactForm);
-    const incidents = Math.max(0, Number(data.get('incidents')) || 0);
-    const hours = Math.max(0, Number(data.get('hours')) || 0);
-    const people = Math.max(1, Number(data.get('people')) || 1);
-    const rate = Math.max(0, Number(data.get('rate')) || 0);
-    const annualCost = incidents * 12 * hours * people * rate;
-    impactOutput.textContent = new Intl.NumberFormat('en-GB', {
-      style: 'currency',
-      currency: 'GBP',
-      maximumFractionDigits: 0
-    }).format(annualCost);
-    impactForm.querySelectorAll('[data-range-value]').forEach(function (output) {
-      const name = output.getAttribute('data-range-value');
-      output.textContent = data.get(name) || '';
-    });
-  }
-
-  impactForm?.addEventListener('input', updateImpactEstimate);
-  updateImpactEstimate();
-})();
+$('#contactForm').addEventListener('submit',(e)=>{ e.preventDefault(); const d=new FormData(e.target); const body=`Name: ${d.get('name')}%0AEmail: ${d.get('email')}%0ACompany: ${d.get('company')}%0ATools: ${d.get('tools')}%0AChallenge: ${d.get('challenge')}`; window.location.href=`mailto:hello@dataobs.co.uk?subject=Architecture%20Review%20Request&body=${body}`; });

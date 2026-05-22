@@ -36,6 +36,7 @@
   <button class="menu-btn" aria-expanded="false" aria-controls="site-nav">☰</button>
   <nav id="site-nav" class="site-nav">
     <a href="#platform">Platform</a>
+    <a href="#otel-guide">OTel guide</a>
     <a href="#architecture">Architecture</a>
     <a href="#solutions">Solutions</a>
     <a href="#accelerators">Accelerators</a>
@@ -89,8 +90,80 @@
     </div>
   </section>
 
+  <section class="section otel-guide" id="otel-guide" aria-labelledby="otelGuideTitle">
+    <p class="eyebrow">OpenTelemetry-first · Vendor-neutral · collect · enrich · route · correlate</p>
+    <h2 id="otelGuideTitle">OpenTelemetry visual guide for data observability</h2>
+    <p class="otel-subtitle">DataObs uses OpenTelemetry patterns to collect, enrich, route, and correlate telemetry from applications, data pipelines, AI agents, cloud platforms, and security systems.</p>
+
+    <div class="otel-grid">
+      <article class="otel-panel" aria-labelledby="signalPanelTitle">
+        <h3 id="signalPanelTitle">1) Signals connected to DataObs context</h3>
+        <div class="signal-orbit" aria-label="Orbit diagram showing telemetry signal types around DataObs context layer">
+          <div class="orbit-core">DataObs<br>Context Layer</div>
+          <button class="signal-chip chip-traces" data-signal="traces">Traces</button>
+          <button class="signal-chip chip-metrics" data-signal="metrics">Metrics</button>
+          <button class="signal-chip chip-logs" data-signal="logs">Logs</button>
+          <button class="signal-chip chip-events" data-signal="events">Events</button>
+          <button class="signal-chip chip-profiles" data-signal="profiles">Profiles</button>
+          <button class="signal-chip chip-baggage" data-signal="baggage">Baggage / context</button>
+          <span class="orbit-ring ring-a" aria-hidden="true"></span>
+          <span class="orbit-ring ring-b" aria-hidden="true"></span>
+        </div>
+        <p id="signalInsight" class="otel-inline-note">Signals link to datasets, owners, business SLA, lineage impact, business service mapping, AI/tool activity, and sensitive-data context.</p>
+      </article>
+
+      <article class="otel-panel" aria-labelledby="pipelinePanelTitle">
+        <h3 id="pipelinePanelTitle">2) Collector pipeline</h3>
+        <div class="collector-grid" aria-label="Receivers processors exporters flow">
+          <div class="collector-stage" data-stage="receivers"><h4>Receivers</h4><p>OTLP · Prometheus · Fluent Forward · Kafka · CloudWatch · APIs · data-quality probes</p></div>
+          <div class="collector-stage" data-stage="processors"><h4>Processors</h4><p>Batch · Memory limiter · Resource detection · Attributes · Transform · Filter · Tail sampling · DataObs enrichment</p></div>
+          <div class="collector-stage" data-stage="exporters"><h4>Exporters</h4><p>Elastic · OpenSearch · Grafana · Datadog · CloudWatch · SIEM · Debug/file</p></div>
+        </div>
+        <pre class="otel-code" aria-label="Pseudo OpenTelemetry collector configuration">receivers:
+  otlp:
+processors:
+  batch:
+  attributes/dataobs:
+exporters:
+  elasticsearch:
+  otlp/grafana:
+service:
+  pipelines:
+    traces:
+    metrics:
+    logs:</pre>
+      </article>
+
+      <article class="otel-panel" aria-labelledby="deployPanelTitle">
+        <h3 id="deployPanelTitle">3) Deployment patterns</h3>
+        <div class="tab-row otel-tab-row" id="otelDeployTabs" role="tablist" aria-label="OpenTelemetry deployment patterns"></div>
+        <div class="deploy-pattern" id="deployPattern" aria-live="polite"></div>
+      </article>
+
+      <article class="otel-panel" aria-labelledby="enrichPanelTitle">
+        <h3 id="enrichPanelTitle">4) DataObs enrichment</h3>
+        <div class="enrich-flow" aria-label="Raw telemetry to enriched actionable event">
+          <div class="enrich-card">
+            <h4>Raw telemetry</h4>
+            <ul><li>service.name</li><li>trace_id</li><li>duration_ms</li><li>error=true</li><li>dataset=orders_hourly</li></ul>
+          </div>
+          <div class="enrich-card enrich-middle">
+            <h4>DataObs enrichment layer</h4>
+            <ul><li>data_product=orders</li><li>owner=data-platform</li><li>sla=60m</li><li>freshness_lag=124m</li><li>lineage_impact=4 dashboards</li><li>sensitive_data=true</li><li>business_service=payments</li><li>ai_agent=enabled</li><li>mcp_tool=customer_lookup</li></ul>
+          </div>
+          <div class="enrich-card enrich-result">
+            <h4>Actionable event</h4>
+            <p>orders_hourly freshness breach impacts payments dashboard and AI forecasting workflow. Owner: data-platform. Recommended action: check upstream Glue job and schema drift.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="note">These diagrams are simplified reference patterns. The actual design depends on the client’s platform, security controls, telemetry volume, and existing observability tools.</p>
+  </section>
+
   <section class="section" id="architecture">
     <h2>Reference architecture for connected observability</h2>
+    <p class="note">After the OpenTelemetry visual guide, this architecture view shows how DataObs operationalizes those patterns across reliability, security, AI activity, and business outcomes.</p>
     <div class="tab-row" id="archTabs"></div>
     <div class="arch-layout">
       <div id="archDiagram" class="arch-diagram"></div>

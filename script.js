@@ -21,6 +21,65 @@ function renderArch(){
 }
 renderArch();
 
+const signalInfo = {
+  traces: 'Traces connect end-to-end execution across services, pipelines, and AI flows with lineage impact and owner routing.',
+  metrics: 'Metrics track saturation, lag, quality score, and business SLA status for fast operational decisions.',
+  logs: 'Logs add diagnostic detail linked to datasets, jobs, and security evidence requirements.',
+  events: 'Events capture key state changes such as freshness breaches, schema drift, and access-policy triggers.',
+  profiles: 'Profiles expose runtime cost and performance hotspots in collectors, agents, and upstream compute jobs.',
+  baggage: 'Baggage/context carries tenant, data product context, owner, and sensitivity tags for correlation.'
+};
+const signalInsight = $('#signalInsight');
+document.querySelectorAll('.signal-chip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.signal-chip').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active');
+    signalInsight.textContent = signalInfo[btn.dataset.signal];
+  });
+});
+
+const deployPatterns = {
+  agent: {
+    title: 'Agent pattern',
+    desc: 'Workload/host → local collector → backend. Best when low-latency local collection is required near the workload.',
+    lines: ['Workload / host', 'Local collector agent', 'Observability backend']
+  },
+  gateway: {
+    title: 'Gateway pattern',
+    desc: 'Apps/services → central collector gateway → multiple backends. Central policy and routing for shared platforms.',
+    lines: ['Apps / services', 'Central collector gateway', 'Elastic · OpenSearch · Grafana · SIEM']
+  },
+  hybrid: {
+    title: 'Agent → Gateway pattern',
+    desc: 'Node agents → regional gateway → Elastic/OpenSearch/Grafana/SIEM. Agent stays close to workload while gateway centralizes controls; usually strongest for enterprise scale.',
+    lines: ['Node agents', 'Regional gateway', 'Elastic · OpenSearch · Grafana · SIEM']
+  }
+};
+const deployTabs = [['agent','Agent'],['gateway','Gateway'],['hybrid','Agent → Gateway']];
+let deployActive = 'agent';
+function renderDeployPattern(){
+  const tabTarget = $('#otelDeployTabs');
+  const panel = $('#deployPattern');
+  if(!tabTarget || !panel) return;
+  tabTarget.innerHTML = '';
+  deployTabs.forEach(([key,label])=>{
+    const b = el('button', key===deployActive ? 'active' : '', label);
+    b.type='button'; b.role='tab'; b.setAttribute('aria-selected', key===deployActive);
+    b.onclick=()=>{deployActive=key; renderDeployPattern();};
+    tabTarget.appendChild(b);
+  });
+  const d = deployPatterns[deployActive];
+  panel.innerHTML = `<h4>${d.title}</h4><p>${d.desc}</p><div class="deploy-graph">${d.lines.map((line,i)=>`<div class="deploy-line"><strong>${i+1}.</strong> ${line}</div>`).join('')}</div>`;
+}
+renderDeployPattern();
+
+document.querySelectorAll('.collector-stage').forEach(stage=>{
+  stage.addEventListener('mouseenter',()=>stage.classList.add('active'));
+  stage.addEventListener('mouseleave',()=>stage.classList.remove('active'));
+  stage.addEventListener('focusin',()=>stage.classList.add('active'));
+  stage.addEventListener('focusout',()=>stage.classList.remove('active'));
+});
+
 $('#themeToggle').onclick=()=>document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';
 $('.menu-btn').onclick=(e)=>{ const nav=$('#site-nav'); const open=nav.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded',open); };
 

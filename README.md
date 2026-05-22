@@ -79,6 +79,7 @@ Safe public content includes:
 - `CNAME`
 - `robots.txt`
 - `sitemap.xml`
+- Original first-party diagrams and SVG/CSS/JS visuals created for this website
 
 ## Content notes
 
@@ -89,6 +90,8 @@ The site positions three connected offerings:
 3. **DPE — Data Platform Engine** — reusable data platform engineering accelerator for IaC-based cloud data platform delivery.
 
 Avoid fake client claims, fake testimonials, unverified certifications, and partnership claims unless they are confirmed and approved for public use.
+
+OpenTelemetry-inspired visuals must be original creations. Do not copy, trace, embed, or recreate third-party copyrighted diagrams/images from articles, vendor pages, or social platforms.
 
 ## Maintenance checklist
 

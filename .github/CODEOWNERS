@@ -1,0 +1,13 @@
+# CODEOWNERS — KJC Infotech Limited
+# All files in this repository are owned by the repository administrator.
+# Every pull request to 'main' must be reviewed and approved by the owner.
+
+# Global owner — all files require owner review
+* @Jagadeeshck
+
+# Core site files — extra protection
+/index.html @Jagadeeshck
+/styles.css @Jagadeeshck
+/script.js @Jagadeeshck
+/LICENSE @Jagadeeshck
+/.github/ @Jagadeeshck

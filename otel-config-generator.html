@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTel Config Generator | DataObs</title>
+  <meta name="description" content="Generate deployable OpenTelemetry Collector configs and architecture diagrams in your browser.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .tool-layout{display:grid;grid-template-columns:minmax(280px,500px) 1fr;gap:1.2rem;align-items:start}
+    .wizard-step,.output-panel{padding:1rem;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+    .source-row{display:grid;grid-template-columns:1.2fr 1fr .5fr 1fr auto;gap:.5rem;margin:.6rem 0;align-items:end}
+    .hidden{display:none}
+    .tab-buttons button.active{background:var(--brand);color:#001414}
+    .code-box{max-height:420px;overflow:auto;background:#10151f;padding:1rem;border-radius:10px}
+    .yaml-key{color:#47d1c5}.yaml-string{color:#f8be65}.yaml-comment{color:#8c98ad}
+    .validation li{margin:.3rem 0}.diagram-wrap{margin-top:1rem}
+    svg text{fill:var(--text)} .node-src rect{stroke:#39d5c8}.node-agent rect{stroke:#b98cff}.node-gw rect{stroke:#fff}.node-back rect{stroke:#f8be65}
+    @media (max-width: 980px){.tool-layout{grid-template-columns:1fr}.source-row{grid-template-columns:1fr 1fr .6fr auto}.source-endpoint{grid-column:1/-1}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><img src="assets/dataobs-mark.svg" alt="DataObs logo"><span>DataObs</span></a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="site-nav">☰</button>
+  <nav id="site-nav" class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="how-we-work.html">How we work</a>
+    <a href="otel-config-generator.html" class="active">OTel Config Tool</a>
+    <a href="services.html">Services</a>
+    <a href="agentguard.html">AgentGuard</a>
+    <a href="contact.html">Contact</a>
+    <a href="https://github.com/sponsors/Jagadeeshck" class="sponsor-btn" target="_blank" rel="noopener">Sponsor</a>
+  </nav>
+  <div class="header-actions"><button id="themeToggle" class="ghost-btn" aria-label="Toggle theme">◐</button><a class="btn" href="contact.html">Book a free review</a></div>
+</header>
+<main>
+<section class="section"><h1>OpenTelemetry Config Generator</h1><p>Describe your infrastructure and backends. Get ready-to-deploy OTel Collector YAML configs and a telemetry architecture diagram — free, no signup required.</p></section>
+<section class="section tool-layout">
+<div class="wizard-step">
+<h3>Step 1: What are you collecting from?</h3><div id="sourceRows"></div><button id="addSource" class="btn btn-secondary" type="button">Add source</button>
+<h3>Step 2: How should agents run?</h3>
+<label><input type="radio" name="deploy" value="agent" checked> OTel Agent on each host</label><br>
+<label><input type="radio" name="deploy" value="gateway"> Central gateway only</label><br>
+<label><input type="radio" name="deploy" value="hybrid"> Agent + Gateway</label>
+<div id="gatewayWrap"><label>Central gateway endpoint<input id="gatewayEndpoint" value="otelcol-gateway:4317"></label></div>
+<h3>Step 3: Where should telemetry go?</h3>
+<div id="backends"></div>
+<button id="generate" class="btn" type="button">Generate configs</button>
+</div>
+<div class="output-panel">
+<div class="tab-buttons" id="configTabs"></div>
+<div><button class="btn btn-secondary" id="copyBtn" type="button">Copy to clipboard</button> <button class="btn btn-secondary" id="downloadYamlBtn" type="button">Download .yaml</button></div>
+<pre class="code-box"><code id="yamlOut">Generate to preview YAML.</code></pre>
+<ul class="validation" id="validation"></ul>
+<div class="diagram-wrap"><button class="btn btn-secondary" id="downloadSvg" type="button">Download diagram as SVG</button><svg id="archSvg" viewBox="0 0 900 500" width="100%" height="380"></svg></div>
+</div>
+</section>
+<section class="section"><h3>Need help deploying this config?</h3><p>DataObs can deploy and validate your OTel Collector setup as a managed engagement. We'll configure agents, tune processors, and wire your backends — then hand it over operably so your team can maintain it.</p><a class="btn" href="contact.html">Book a free architecture review</a></section>
+</main>
+<footer class="site-footer"><p>© 2026 DataObs / KJC INFOTECH Ltd</p></footer>
+<script src="script.js"></script>
+<script>
+const sourceTypes=[['linux','Linux / host metrics and logs'],['windows','Windows / host metrics and logs'],['elasticsearch','Elasticsearch cluster (metrics + logs)'],['opensearch','OpenSearch cluster (metrics + logs)'],['k8s','Kubernetes cluster (pod metrics + logs)'],['docker','Docker containers (metrics + logs)'],['app','Application (OTLP SDK — traces, metrics, logs)'],['postgres','PostgreSQL / MySQL (metrics)'],['kafka','Kafka (metrics + consumer lag)'],['cloudwatch','AWS CloudWatch (metrics + logs)'],['custom','Custom / OTLP endpoint']];
+const backendDefs={elastic:{label:'Elasticsearch',fields:['endpoint','prefix','username','password']},gcloud:{label:'Grafana Cloud',fields:['endpoint','apiKey']},glocal:{label:'Grafana (self-hosted)',fields:['endpoint']},opensearch:{label:'OpenSearch',fields:['endpoint','prefix','username','password']},datadog:{label:'Datadog',fields:['apiKey','site']},debug:{label:'Debug (stdout — for testing)',fields:[]}};
+const state={configs:{},active:''};
+function addSource(){const row=document.createElement('div');row.className='source-row';row.innerHTML=`<label>Type<select class='src-type'>${sourceTypes.map(([v,l])=>`<option value='${v}'>${l}</option>`).join('')}</select></label><label>Label<input class='src-label' placeholder='e.g. prod-es-node-1 or my-app'></label><label>Count<input class='src-count' type='number' min='1' max='50' value='1'></label><label class='source-endpoint'>Endpoint<input class='src-endpoint' placeholder='e.g. localhost:9200 or 10.0.0.1'></label><button type='button' class='ghost-btn remove'>×</button>`;row.querySelector('.remove').onclick=()=>row.remove();row.querySelector('.src-type').onchange=()=>toggleEndpoint(row);toggleEndpoint(row);document.getElementById('sourceRows').appendChild(row)}
+function toggleEndpoint(row){const t=row.querySelector('.src-type').value;row.querySelector('.source-endpoint').style.display=['elasticsearch','opensearch','postgres','kafka','custom'].includes(t)?'block':'none'}
+function renderBackends(){const wrap=document.getElementById('backends');wrap.innerHTML='';Object.entries(backendDefs).forEach(([k,b])=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<label><input type='checkbox' data-back='${k}'> ${b.label}</label><div class='hidden' id='fields-${k}'></div>`;wrap.appendChild(d);const f=d.querySelector(`#fields-${k}`);f.innerHTML=b.fields.map(x=>`<label>${x}<input data-field='${x}'></label>`).join('');d.querySelector('input[type=checkbox]').onchange=e=>f.classList.toggle('hidden',!e.target.checked);
+const vals={endpoint:k==='elastic'||k==='opensearch'?'http://localhost:9200':k==='glocal'?'http://localhost:4317':'',prefix:'otel',site:'datadoghq.eu'};f.querySelectorAll('input').forEach(i=>i.value=vals[i.dataset.field]||'');});}
+function ymlObjToText(obj,indent=0){if(Array.isArray(obj)) return obj.map(v=>' '.repeat(indent)+'- '+(typeof v==='object'?'\n'+ymlObjToText(v,indent+2):v)).join('\n');return Object.entries(obj).map(([k,v])=>{if(v&&typeof v==='object') return ' '.repeat(indent)+k+':\n'+ymlObjToText(v,indent+2); return ' '.repeat(indent)+k+': '+v;}).join('\n')}
+function highlight(y){return y.replace(/^(\s*#.*)$/gm,"<span class='yaml-comment'>$1</span>").replace(/^(\s*[\w\/-]+:)/gm,"<span class='yaml-key'>$1</span>").replace(/(:\s)([^\n#]+)$/gm,"$1<span class='yaml-string'>$2</span>")}
+function generate(){const rows=[...document.querySelectorAll('.source-row')].map(r=>({type:r.querySelector('.src-type').value,label:(r.querySelector('.src-label').value||'source').replace(/[^a-zA-Z0-9-_]/g,'-'),count:+r.querySelector('.src-count').value||1,endpoint:r.querySelector('.src-endpoint').value.trim()}));const deploy=document.querySelector('input[name=deploy]:checked').value;const gateway=document.getElementById('gatewayEndpoint').value.trim()||'otelcol-gateway:4317';
+const backs=[...document.querySelectorAll('#backends input[type=checkbox]:checked')].map(b=>b.dataset.back); if(!backs.length){document.getElementById('validation').innerHTML='<li>❌ No exporters — select at least one backend</li>';return;}
+const exp={};const exNames=[];backs.forEach(k=>{const f=document.getElementById('fields-'+k);const get=n=>f?.querySelector(`[data-field=${n}]`)?.value||'';if(k==='elastic'){exp['elasticsearch/output']={endpoint:get('endpoint'),logs_index:`${get('prefix')||'otel'}-logs`,traces_index:`${get('prefix')||'otel'}-traces`,metrics_index:`${get('prefix')||'otel'}-metrics`,password:'${ELASTICSEARCH_PASSWORD}',sending_queue:{enabled:true,num_consumers:10,queue_size:1000},retry_on_failure:{enabled:true,initial_interval:'5s',max_interval:'30s',max_elapsed_time:'300s'}};if(get('username'))exp['elasticsearch/output'].user=get('username');exNames.push('elasticsearch/output')} if(k==='glocal'){exp['otlp/grafana-local']={endpoint:get('endpoint')||'http://localhost:4317',tls:{insecure:true}};exNames.push('otlp/grafana-local')} if(k==='debug'){exp['debug/output']={verbosity:'detailed'};exNames.push('debug/output')} if(k==='gcloud'){exp['otlphttp/grafana']={endpoint:get('endpoint'),headers:{authorization:'Basic ${GRAFANA_API_KEY}'}};exNames.push('otlphttp/grafana')} if(k==='opensearch'){exp['elasticsearch/opensearch-output']={endpoint:get('endpoint')||'http://localhost:9200',logs_index:`${get('prefix')||'otel'}-logs`,password:'${OPENSEARCH_PASSWORD}'};if(get('username'))exp['elasticsearch/opensearch-output'].user=get('username');exNames.push('elasticsearch/opensearch-output')} if(k==='datadog'){exp['datadog/output']={api:{key:'${DATADOG_API_KEY}',site:get('site')||'datadoghq.eu'}};exNames.push('datadog/output')}});
+const rec={},metrics=[],logs=[],traces=[];rows.forEach(s=>{if(s.type==='linux'){rec['hostmetrics/'+s.label]={collection_interval:'60s',scrapers:{cpu:{},disk:{},load:{},filesystem:{},memory:{},network:{},paging:{},process:{mute_process_name_error:true}}};rec['filelog/'+s.label]={include:['/var/log/syslog','/var/log/messages','/var/log/auth.log'],start_at:'end',include_file_path:true,include_file_name:false,operators:[{type:'move',from:'attributes["log.file.path"]',to:'resource["log.file.path"]'}]};metrics.push('hostmetrics/'+s.label);logs.push('filelog/'+s.label)}
+if(s.type==='elasticsearch'){rec['elasticsearch/'+s.label]={endpoint:s.endpoint||'localhost:9200',collection_interval:'60s',metrics:{'elasticsearch.cluster.health':{enabled:true},'elasticsearch.node.shards.size':{enabled:true},'elasticsearch.index.documents':{enabled:true},'elasticsearch.node.documents':{enabled:true},'jvm.memory.heap.used':{enabled:true},'jvm.gc.collections.count':{enabled:true},'elasticsearch.cluster.shards':{enabled:true}}};metrics.push('elasticsearch/'+s.label);if((s.endpoint||'localhost:9200').includes('localhost')){rec['filelog/'+s.label+'-es']={include:['/var/log/elasticsearch/*.log'],start_at:'end'};logs.push('filelog/'+s.label+'-es')}}
+if(s.type==='app'){rec['otlp/'+s.label]={protocols:{grpc:{endpoint:'0.0.0.0:4317'},http:{endpoint:'0.0.0.0:4318'}}};metrics.push('otlp/'+s.label);logs.push('otlp/'+s.label);traces.push('otlp/'+s.label)}
+if(s.type==='custom'){rec['otlp/'+s.label]={protocols:{grpc:{endpoint:s.endpoint||'0.0.0.0:4317'}}};metrics.push('otlp/'+s.label);logs.push('otlp/'+s.label);traces.push('otlp/'+s.label)}
+});
+function pipelines(exporters){const p={};if(metrics.length)p.metrics={receivers:metrics,processors:['memory_limiter','resourcedetection','batch'],exporters};if(logs.length)p.logs={receivers:logs,processors:['memory_limiter','resourcedetection','batch'],exporters};if(traces.length)p.traces={receivers:traces,processors:['memory_limiter','resourcedetection','batch'],exporters};return p}
+state.configs={};
+if(deploy!=='gateway'){const agentExporters=deploy==='hybrid'?{otlp:{endpoint:gateway,tls:{insecure:true}}}:exp;const exlist=deploy==='hybrid'?['otlp']:exNames;state.configs.agent="# DataObs OTel Agent Config\n# Generated by DataObs OTel Config Generator — dataobs.co.uk\n# Deploy: one instance per host/node\n\n"+ymlObjToText({extensions:{health_check:{},pprof:{endpoint:'0.0.0.0:1777'},zpages:{endpoint:'0.0.0.0:55679'}},receivers:rec,processors:{batch:{send_batch_size:1000,timeout:'10s'},memory_limiter:{check_interval:'1s',limit_mib:512,spike_limit_mib:128},resourcedetection:{detectors:['env','system','docker'],timeout:'5s'}},exporters:agentExporters,service:{extensions:['health_check','pprof','zpages'],pipelines:pipelines(exlist)}})}
+if(deploy!=='agent'){state.configs.gateway="# DataObs OTel Gateway Config\n# Generated by DataObs OTel Config Generator — dataobs.co.uk\n# Deploy: one central instance, all agents forward here\n\n"+ymlObjToText({extensions:{health_check:{}},receivers:{otlp:{protocols:{grpc:{endpoint:'0.0.0.0:4317'},http:{endpoint:'0.0.0.0:4318'}}},},processors:{batch:{send_batch_size:5000,timeout:'15s'},memory_limiter:{check_interval:'1s',limit_mib:1024,spike_limit_mib:256},resourcedetection:{detectors:['env','system','docker'],timeout:'5s'}},exporters:exp,service:{extensions:['health_check'],pipelines:pipelines(exNames)}})}
+renderTabs();renderValidation(rows.length,Object.keys(rec).length,exNames.length,metrics,logs,traces,deploy,backs);renderDiagram(rows,deploy,backs)}
+function renderTabs(){const tabs=Object.keys(state.configs);const wrap=document.getElementById('configTabs');wrap.innerHTML='';tabs.forEach(t=>{const b=document.createElement('button');b.textContent=t==='agent'?'Agent config':'Gateway config';b.className=t===tabs[0]?'active':'';b.onclick=()=>showTab(t,b);wrap.appendChild(b)});showTab(tabs[0],wrap.firstChild)}
+function showTab(tab,btn){state.active=tab;document.querySelectorAll('#configTabs button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');document.getElementById('yamlOut').innerHTML=highlight(state.configs[tab])}
+function renderValidation(sourceCount,recCount,expCount,m,l,t,deploy,backs){const v=[];if(deploy!=='gateway')v.push('✅ Agent config generated');if(deploy!=='agent')v.push('✅ Gateway config generated');v.push(`✅ ${recCount} receivers configured`);v.push(`✅ ${expCount} exporters configured`);v.push(`✅ Metrics pipeline: ${m.length?'ready':'not configured'}`);v.push(`✅ Logs pipeline: ${l.length?'ready':'not configured'}`);v.push(`${t.length?'✅':'⚠️'} Traces pipeline: ${t.length?'ready':'not configured (no OTLP app sources)'}`);document.getElementById('validation').innerHTML=v.map(i=>`<li>${i}</li>`).join('')}
+function renderDiagram(rows,deploy,backs){const svg=document.getElementById('archSvg');svg.innerHTML='';const H=500;const sy=(i,n)=>((i+1)*H/(n+1))-28;const addNode=(x,y,c,l1,l2)=>{const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class',c);g.innerHTML=`<rect x='${x}' y='${y}' width='160' height='56' rx='10' fill='none' stroke-width='2'/><text x='${x+10}' y='${y+24}' font-size='14'>${l1}</text><text x='${x+10}' y='${y+42}' font-size='11'>${l2}</text>`;svg.appendChild(g)};const line=(x1,y1,x2,y2)=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',`M ${x1} ${y1} C ${x1+80} ${y1}, ${x2-80} ${y2}, ${x2} ${y2}`);p.setAttribute('class','flow-line');p.setAttribute('stroke','var(--brand)');p.setAttribute('fill','none');svg.appendChild(p)};
+rows.forEach((r,i)=>addNode(60,sy(i,rows.length),'node-src',r.label||'source',r.type));if(deploy!=='gateway')rows.forEach((r,i)=>addNode(280,sy(i,rows.length),'node-agent',deploy==='hybrid'?'OTel Agent':'OTel Agent',r.label||'source'));if(deploy!=='agent')addNode(500,220,'node-gw','OTel Gateway','central collector');backs.forEach((b,i)=>addNode(720,sy(i,backs.length),'node-back',backendDefs[b].label,'backend'));
+rows.forEach((r,i)=>{const y=sy(i,rows.length)+28;if(deploy==='gateway'){line(220,y,500,248)}else if(deploy==='agent'){backs.forEach((b,j)=>line(440,y,720,sy(j,backs.length)+28))}else{line(220,y,280,y);line(440,y,500,248)}});if(deploy!=='agent'){backs.forEach((b,j)=>line(660,248,720,sy(j,backs.length)+28))}}
+
+document.getElementById('addSource').onclick=addSource;addSource();renderBackends();
+document.querySelectorAll('input[name=deploy]').forEach(r=>r.onchange=()=>document.getElementById('gatewayWrap').style.display=r.value==='gateway'&&r.checked?'none':'block');
+document.getElementById('copyBtn').onclick=()=>navigator.clipboard.writeText(state.configs[state.active]||'');
+document.getElementById('downloadYamlBtn').onclick=()=>{const b=new Blob([state.configs[state.active]||''],{type:'text/yaml'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=state.active==='agent'?'otel-agent.yaml':'otel-gateway.yaml';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('downloadSvg').onclick=()=>{const s=new XMLSerializer().serializeToString(document.getElementById('archSvg'));const b=new Blob([s],{type:'image/svg+xml'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='diagram.svg';a.click();URL.revokeObjectURL(a.href)};
+document.getElementById('generate').onclick=generate;
+</script>
+</body></html>

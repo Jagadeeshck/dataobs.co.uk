@@ -92,8 +92,63 @@ $('#solutionsGrid').append(...solutions.map(t=>el('article','solution',`<h3>${t}
 const story=[['Signal detected','orders.hourly freshness breach'],['Context added','Owner, SLA, lineage, upstream job, downstream dashboard'],['Impact calculated','Business service and reporting impact'],['Action routed','Alert, runbook, incident ticket, evidence pack'],['Learning captured','Backlog item, dashboard update, rule tuning']];
 $('#timeline').append(...story.map(([h,p])=>el('div','story-step',`<h3>${h}</h3><p>${p}</p>`)));
 
-const packages=['Observability Assessment Sprint','OTEL Foundation Build','Elastic / OpenSearch DataOps Build','AI Agent Telemetry Proof of Concept','DPE Data Platform Review','SIEM and Compliance Evidence Pack'];
-$('#packages').append(...packages.map(p=>el('article','package',`<h3>${p}</h3><p><strong>Best for:</strong> teams starting focused observability delivery.</p><p><strong>What is delivered:</strong> architecture, implementation plan, and runbook pattern.</p><p><strong>Typical outputs:</strong></p><ul><li>Current-state map</li><li>Target blueprint</li><li>Operable handover assets</li></ul><a href="#contact" class="btn btn-secondary">Discuss this package</a>`)));
+const packages = [
+  {
+    name: 'Cluster Health Audit',
+    tag: 'Most popular',
+    price: '£750',
+    duration: 'Fixed price · delivered in 2–3 days',
+    bestFor: 'Teams with growing or underperforming Elasticsearch / OpenSearch clusters.',
+    deliverables: ['Index lifecycle and shard allocation review', 'Query performance bottleneck analysis', 'ILM policy and cost optimisation recommendations', 'Security settings review', 'Written report + 30-min walkthrough call'],
+    upsell: 'Optional: Cluster Remediation (£2,000–£5,000 to implement findings)'
+  },
+  {
+    name: 'Observability Assessment Sprint',
+    tag: '',
+    price: 'From £2,500',
+    duration: '1 week · remote delivery',
+    bestFor: 'Teams that collect telemetry but lack data observability coverage.',
+    deliverables: ['Current-state telemetry gap map', 'Target OTel architecture blueprint', 'Vendor-neutral tool recommendations', 'Prioritised implementation roadmap', 'Operable handover assets'],
+    upsell: ''
+  },
+  {
+    name: 'OTEL Foundation Build',
+    tag: '',
+    price: 'From £5,000',
+    duration: '2–3 weeks · remote delivery',
+    bestFor: 'Teams ready to implement OpenTelemetry across pipelines and data platforms.',
+    deliverables: ['OTel collector pipeline setup (receivers, processors, exporters)', 'DataObs enrichment layer configuration', 'Integration with Elastic, OpenSearch, or Grafana', 'Runbook and alert patterns', 'Operable handover'],
+    upsell: ''
+  },
+  {
+    name: 'Elastic / OpenSearch DataOps Build',
+    tag: '',
+    price: 'From £4,000',
+    duration: '2 weeks · remote delivery',
+    bestFor: 'Teams on Elastic or OpenSearch needing production-grade observability pipelines.',
+    deliverables: ['Index design and ILM policies', 'Ingest pipeline build (Logstash / Fleet / Elastic Agent)', 'Dashboard and alert pack', 'Search relevance review (if applicable)', 'Operable handover'],
+    upsell: ''
+  },
+  {
+    name: 'AI Agent Telemetry PoC',
+    tag: 'New',
+    price: 'From £3,000',
+    duration: '1–2 weeks · remote delivery',
+    bestFor: 'Teams deploying LLM apps, AI agents, or MCP tools that need governance and visibility.',
+    deliverables: ['AI activity event schema design', 'OTel instrumentation for agent/MCP tool calls', 'Token and latency monitoring', 'Sensitive data access visibility', 'Integration with existing observability stack'],
+    upsell: 'Can include AgentGuard Elastic integration'
+  },
+  {
+    name: 'SIEM and Compliance Evidence Pack',
+    tag: '',
+    price: 'From £3,500',
+    duration: '1–2 weeks · remote delivery',
+    bestFor: 'Teams needing to connect data-access telemetry to SIEM and compliance evidence workflows.',
+    deliverables: ['Data-access event schema aligned to ECS', 'SIEM integration (Elastic Security / OpenSearch Security Analytics)', 'PII access and privilege-escalation detection rules', 'Evidence pack for audit', 'Runbook and handover assets'],
+    upsell: ''
+  }
+];
+$('#packages').append(...packages.map(pkg=>el('article','package',`<div class="package-header"><h3>${pkg.name}</h3>${pkg.tag ? `<span class="package-tag">${pkg.tag}</span>` : ''}</div><p class="package-price">${pkg.price}</p><p class="package-duration">${pkg.duration}</p><p><strong>Best for:</strong> ${pkg.bestFor}</p><ul>${pkg.deliverables.map(item => `<li>${item}</li>`).join('')}</ul>${pkg.upsell ? `<p class="package-upsell">💡 ${pkg.upsell}</p>` : ''}<a href="#contact" class="btn btn-secondary">Discuss this package</a>`)));
 
 const chipGroups={Cloud:['AWS','Azure','GCP'],Data:['S3','Glue','EMR','Athena','Redshift','Kafka','Spark','dbt','Airflow','PostgreSQL','MySQL'],Observability:['OpenTelemetry','Elastic','OpenSearch','Grafana','Datadog','CloudWatch','Prometheus'],'Security & workflow':['SIEM','ServiceNow','PagerDuty','Slack','Jira'],AI:['LLM apps','AI agents','MCP tools','RAG pipelines','feature stores']};
 Object.entries(chipGroups).forEach(([k,v])=>$('#chips').appendChild(el('div','chip-group',`<h3>${k}</h3>${v.map(c=>`<span class="chip">${c}</span>`).join('')}`)));
@@ -106,4 +161,10 @@ function calc(){
 }
 ['incidents','hours','people','rate','reduction'].forEach(id=>$('#'+id).addEventListener('input',calc)); calc();
 
-$('#contactForm').addEventListener('submit',(e)=>{ e.preventDefault(); const d=new FormData(e.target); const body=`Name: ${d.get('name')}%0AEmail: ${d.get('email')}%0ACompany: ${d.get('company')}%0ATools: ${d.get('tools')}%0AChallenge: ${d.get('challenge')}`; window.location.href=`mailto:hello@dataobs.co.uk?subject=Architecture%20Review%20Request&body=${body}`; });
+const emailField = $('#contactForm input[name="email"]');
+const replyToField = $('#replyToField');
+if (emailField && replyToField) {
+  emailField.addEventListener('input', () => {
+    replyToField.value = emailField.value;
+  });
+}

@@ -9,6 +9,9 @@
   <meta property="og:description" content="DataObs helps platform and data teams design OpenTelemetry-first observability across pipelines, data quality, AI agents, Elastic, OpenSearch, Grafana, SIEM and cloud data platforms.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dataobs.co.uk/">
+  <meta property="og:image" content="https://dataobs.co.uk/assets/dataobs-mark.svg">
+  <meta name="author" content="DataObs / KJC INFOTECH Ltd">
+  <link rel="canonical" href="https://dataobs.co.uk/">
   <meta name="theme-color" content="#090d1d">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
@@ -40,8 +43,10 @@
     <a href="#architecture">Architecture</a>
     <a href="#solutions">Solutions</a>
     <a href="#accelerators">Accelerators</a>
+    <a href="#agentguard">AgentGuard</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
+    <a href="https://github.com/sponsors/Jagadeeshck" class="sponsor-btn" target="_blank" rel="noopener">Sponsor on GitHub</a>
   </nav>
   <div class="header-actions">
     <button id="themeToggle" class="ghost-btn" aria-label="Toggle theme">◐</button>
@@ -190,6 +195,19 @@ service:
 
   <section class="section"><h2>From incident noise to business-ready answers</h2><div class="timeline" id="timeline"></div></section>
 
+  <section class="section" id="agentguard">
+    <p class="eyebrow">New open-source project</p>
+    <h2>AgentGuard — AI activity observability</h2>
+    <p>AgentGuard is an open-source platform that gives your team visibility into AI agent and LLM tool activity across your endpoints and data systems. Built as a native Elastic Agent integration, AgentGuard collects, normalises (ECS), and routes AI activity events to your existing Elastic or OpenSearch stack — no new infrastructure required.</p>
+    <div class="agentguard-chips">
+      <span>Browser AI visibility</span><span>MCP tool monitoring</span><span>Token &amp; latency tracking</span><span>Sensitive data access detection</span><span>Elastic Agent integration</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn" href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">View on GitHub</a>
+      <a class="btn btn-secondary" href="#contact">Discuss enterprise deployment</a>
+    </div>
+  </section>
+
   <section class="section" id="services"><h2>Engagement packages</h2><div class="packages" id="packages"></div></section>
 
   <section class="section"><h2>Integration ecosystem</h2><div class="chip-groups" id="chips"></div></section>
@@ -207,23 +225,40 @@ service:
     <p class="note">For planning conversations only, not financial advice.</p>
   </section>
 
-  <section class="section" id="about"><h2>Founder-led, implementation-first</h2><p>DataObs is a founder-led specialist consultancy built from hands-on platform engineering experience across Elastic, OpenSearch, AWS, SAS platforms, cloud migrations, infrastructure automation, SIEM, and enterprise data operations.</p><ul><li>Hands-on engineering</li><li>Vendor-neutral architecture</li><li>Practical delivery</li><li>Operable handover</li><li>Public accelerators / private delivery patterns</li></ul></section>
+  <section class="section" id="about"><h2>Founder-led, implementation-first</h2><p>DataObs is a founder-led specialist consultancy built from hands-on platform engineering experience including 6 years of Elasticsearch and OpenSearch specialisation, team leadership at enterprise scale, and AWS-native data platform delivery across Elastic, OpenSearch, AWS, SAS platforms, cloud migrations, infrastructure automation, SIEM, and enterprise data operations.</p><p>Based in Edinburgh, Scotland · Available for remote contracts and engagements across the UK and Europe.</p><ul><li>Hands-on engineering</li><li>Vendor-neutral architecture</li><li>Practical delivery</li><li>Operable handover</li><li>Public accelerators / private delivery patterns</li></ul></section>
 
   <section class="section cta"><h2>Ready to make your data platform observable?</h2><p>Start with a focused architecture review. We will map your current telemetry, identify blind spots, and define a practical delivery path.</p><div class="hero-cta"><a class="btn" href="#contact">Book architecture review</a><a class="btn btn-secondary" href="mailto:hello@dataobs.co.uk">Email hello@dataobs.co.uk</a></div></section>
 
   <section class="section" id="contact">
     <h2>Contact</h2>
-    <form id="contactForm" class="contact-form">
-      <input name="name" placeholder="Name" required>
-      <input name="email" type="email" placeholder="Business email" required>
-      <input name="company" placeholder="Company">
-      <input name="tools" placeholder="Current tools">
-      <textarea name="challenge" placeholder="Main challenge" required></textarea>
-      <button class="btn" type="submit">Open email draft</button>
-    </form>
-    <p class="note">This static form opens your email client. No form data is stored by this website.</p>
+    <div class="contact-grid">
+      <article class="contact-call card">
+        <h3>Book a call</h3>
+        <p>Start with a focused architecture conversation to map telemetry gaps and identify the highest-impact first steps.</p>
+        <a class="btn" href="https://calendly.com/dataobs" target="_blank" rel="noopener">Book a free 30-min architecture review</a>
+      </article>
+      <div>
+        <h3>Send a message</h3>
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+          <input type="hidden" name="_subject" value="DataObs enquiry">
+          <input name="name" placeholder="Name" required>
+          <input name="email" type="email" placeholder="Business email" required>
+          <input type="hidden" name="_replyto" id="replyToField">
+          <input name="company" placeholder="Company">
+          <input name="tools" placeholder="Current tools">
+          <textarea name="challenge" placeholder="Main challenge" required></textarea>
+          <button class="btn" type="submit">Send message</button>
+        </form>
+        <p class="note">We respond within 1 business day. You can also email hello@dataobs.co.uk directly.</p>
+      </div>
+    </div>
   </section>
 </main>
+<footer class="site-footer">
+  <p>© 2026 DataObs / KJC INFOTECH Ltd</p>
+  <p><a href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">AgentGuard</a> · <a href="https://github.com/sponsors/Jagadeeshck" target="_blank" rel="noopener">Sponsor</a></p>
+  <small>Vendor-neutral · OTel-first · UK-based remote delivery</small>
+</footer>
 <script src="script.js"></script>
 </body>
 </html>

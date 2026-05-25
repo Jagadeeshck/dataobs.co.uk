@@ -1,34 +1,84 @@
-# DataObs website
+# DataObs Website
 
-Public static website for **DataObs**, hosted with GitHub Pages at:
+Public website for **DataObs**, a founder-led consultancy focused on data observability, OpenTelemetry architecture, AI-era telemetry, cloud data platforms, Elastic/OpenSearch delivery, SIEM-aligned observability, and data platform engineering.
+
+## Website
 
 ```text
 https://dataobs.co.uk/
 ```
 
-DataObs is a founder-led consultancy focused on data observability, OpenTelemetry architecture, AWS data platform observability, Elastic/OpenSearch implementation, AI-era telemetry, SIEM-aligned observability, and data platform engineering.
+## Purpose
+
+This repository contains the public marketing website for DataObs. The site is designed to explain the consultancy offer, show the DataObs architecture approach, and give prospective clients a clear way to start an architecture review.
+
+DataObs helps platform, data, observability, security, and AI engineering teams make data platforms easier to trust and operate by connecting:
+
+- pipeline telemetry
+- data freshness and quality signals
+- lineage and ownership context
+- cloud and infrastructure telemetry
+- AI agent and Model Context Protocol (MCP)/tool activity
+- sensitive data access signals
+- business SLA and service impact
+
+The website is intentionally static, lightweight, and easy to host on GitHub Pages.
+
+## Positioning
+
+DataObs is presented as a consultancy and delivery studio, not as a finished SaaS product.
+
+The public site introduces three connected delivery areas:
+
+### DataObs Advisory and Delivery
+
+Consultancy-led assessment, architecture, implementation, dashboards, alerting, runbooks, and operational handover for data observability initiatives.
+
+### DataObs Platform Accelerator
+
+Reusable implementation patterns for full-stack, pipeline, data, and business observability. These patterns help speed up delivery while still allowing each client architecture to be adapted to the tools and controls already in place.
+
+### DPE — Data Platform Engine
+
+A data platform engineering accelerator for infrastructure-as-code-based delivery of cloud data platform components, with observability designed in from the start.
+
+## Design direction
+
+The website is intended to feel like a modern observability and platform engineering site: visual, interactive, architecture-led, and enterprise-friendly.
+
+Current design themes:
+
+- OpenTelemetry-first storytelling
+- interactive architecture sections
+- original SVG/CSS diagrams
+- dark/light visual style
+- telemetry flow graphics
+- platform and accelerator positioning
+- browser-only calculator and contact flow
+
+All diagrams and visuals in this repository should be original first-party website assets. Third-party screenshots, vendor diagrams, article images, social-media images, or copied product graphics should not be committed unless there is explicit permission and a clear reason to use them.
 
 ## Tech stack
 
 - Static HTML
 - CSS
-- JavaScript
+- Vanilla JavaScript
 - GitHub Pages
 
-There is no backend, build system, package install step, or server runtime required for the public website.
+The public website is statically hosted and has no first-party backend, package manager, build step, or server runtime. It may optionally rely on third-party services for contact or booking flows.
 
 ## Repository structure
 
 ```text
 .
-├── index.html
-├── styles.css
-├── script.js
-├── assets/
-├── CNAME
-├── robots.txt
-├── sitemap.xml
-└── README.md
+├── index.html      # Main static website
+├── styles.css      # Layout, theme, responsive design, visual diagrams
+├── script.js       # Mobile menu, theme toggle, interactive sections, calculator, contact form handling
+├── assets/         # First-party static assets
+├── CNAME           # GitHub Pages custom domain
+├── robots.txt      # Search crawler rules
+├── sitemap.xml     # Public sitemap
+└── README.md       # Project notes and maintenance guidance
 ```
 
 ## Local preview
@@ -47,7 +97,7 @@ http://localhost:8000
 
 ## Deployment
 
-The site is designed to be served directly by GitHub Pages from the `main` branch and repository root.
+The site is served directly by GitHub Pages from the `main` branch and repository root.
 
 The `CNAME` file is required for the custom domain and should contain only:
 
@@ -55,59 +105,68 @@ The `CNAME` file is required for the custom domain and should contain only:
 dataobs.co.uk
 ```
 
-For DNS setup, use GitHub's official custom-domain documentation. Do not store registrar account details, screenshots, DNS tables, tokens, or private operational notes in this public repository.
+DNS and registrar configuration should be managed outside this repository. Follow GitHub Pages custom-domain guidance when changing domain settings.
 
-## Public repository safety
+## Public repository standards
+
+This is a public repository, so keep the content suitable for external viewing.
 
 Do not commit:
 
-- API keys
-- Analytics tokens
-- Registrar account details
-- DNS screenshots
-- Passwords
-- `.env` files
-- Client names or private client information
-- Internal architecture diagrams that are not intended for public use
-- Private repository access details
+- secrets, API keys, tokens, passwords, or `.env` files
+- DNS records, registrar screenshots, or private hosting notes
+- private client names, client architecture, or delivery documents
+- personal addresses or non-public contact details
+- copied third-party diagrams, screenshots, vendor graphics, or article images
+- unverified claims about clients, partnerships, certifications, awards, or analyst recognition
 
-Safe public content includes:
+Acceptable public content includes:
 
-- Marketing copy
-- Static assets
-- Public contact email
-- `CNAME`
-- `robots.txt`
-- `sitemap.xml`
-- Original first-party diagrams and SVG/CSS/JS visuals created for this website
+- approved marketing copy
+- first-party diagrams and SVG/CSS/JS visuals
+- public service descriptions
+- public contact email
+- GitHub Pages files such as `CNAME`, `robots.txt`, and `sitemap.xml`
 
-## Content notes
+## Content style
 
-The site positions three connected offerings:
+Use a confident but accurate consultancy tone.
 
-1. **DataObs Advisory and Delivery** — consultancy-led assessment, architecture, implementation, and handover.
-2. **DataObs Platform** — reusable observability accelerator patterns for infrastructure, pipeline, data, and business observability.
-3. **DPE — Data Platform Engine** — reusable data platform engineering accelerator for IaC-based cloud data platform delivery.
+Preferred wording:
 
-Avoid fake client claims, fake testimonials, unverified certifications, and partnership claims unless they are confirmed and approved for public use.
+- vendor-neutral
+- OpenTelemetry-first
+- architecture-led
+- implementation-focused
+- operable handover
+- data product trust
+- business impact
+- telemetry correlation
+- reusable accelerator patterns
 
-OpenTelemetry-inspired visuals must be original creations. Do not copy, trace, embed, or recreate third-party copyrighted diagrams/images from articles, vendor pages, or social platforms.
+Avoid overclaiming. Do not add fake testimonials, fake customers, fake logos, fake partner badges, or claims that cannot be verified.
 
 ## Maintenance checklist
 
-Before publishing changes:
+Before publishing changes, confirm:
 
-- Check that all internal anchor links work.
-- Confirm the contact form opens a mail client.
-- Confirm the mobile menu works.
-- Confirm the light/dark theme toggle works.
-- Confirm `CNAME`, `robots.txt`, and `sitemap.xml` remain in the repository root.
-- Confirm no secrets or unnecessary operational details have been added.
-- Confirm the site still works as a fully static GitHub Pages site.
+- all navigation anchors point to existing sections
+- the mobile menu opens and closes correctly
+- the dark/light theme toggle works
+- interactive architecture sections work
+- the calculator updates correctly
+- the contact form submits successfully and Formspree is correctly configured to receive submissions
+- the site remains fully static and GitHub Pages compatible
+- `CNAME`, `robots.txt`, and `sitemap.xml` remain in the repository root
+- no secrets, private operational details, or copied third-party images were added
 
-## TODO
+## Next improvements
 
-- Add a public Open Graph image.
-- Add a privacy page before introducing analytics or third-party embeds.
-- Add real case studies only after permission is available.
-- Consider service-specific landing pages when SEO strategy is ready.
+Recommended next steps:
+
+- Add a first-party Open Graph preview image under `assets/`.
+- Add a short privacy page before introducing analytics or third-party embeds.
+- Create service-specific landing sections for Data Observability Assessment, OTEL Foundation Build, Elastic/OpenSearch Delivery, AI Agent Telemetry, and DPE Review.
+- Add real case studies only after client approval is available.
+- Add a simple content review checklist for future website edits.
+- Improve accessibility testing with keyboard navigation and contrast checks.

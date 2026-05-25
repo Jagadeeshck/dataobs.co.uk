@@ -18,7 +18,7 @@ DataObs helps platform, data, observability, security, and AI engineering teams 
 - data freshness and quality signals
 - lineage and ownership context
 - cloud and infrastructure telemetry
-- AI agent and MCP/tool activity
+- AI agent and Model Context Protocol (MCP)/tool activity
 - sensitive data access signals
 - business SLA and service impact
 
@@ -40,11 +40,11 @@ Reusable implementation patterns for full-stack, pipeline, data, and business ob
 
 ### DPE — Data Platform Engine
 
-A data platform engineering accelerator for infrastructure-as-code based delivery of cloud data platform components, with observability designed in from the start.
+A data platform engineering accelerator for infrastructure-as-code-based delivery of cloud data platform components, with observability designed in from the start.
 
 ## Design direction
 
-The website is intended to feel like a modern observability and platform engineering site: visual, interactive, architecture-led, and enterprise friendly.
+The website is intended to feel like a modern observability and platform engineering site: visual, interactive, architecture-led, and enterprise-friendly.
 
 Current design themes:
 
@@ -73,7 +73,7 @@ The public website is statically hosted and has no first-party backend, package 
 .
 ├── index.html      # Main static website
 ├── styles.css      # Layout, theme, responsive design, visual diagrams
-├── script.js       # Mobile menu, theme toggle, interactive sections, calculator, contact mailto
+├── script.js       # Mobile menu, theme toggle, interactive sections, calculator, contact form handling
 ├── assets/         # First-party static assets
 ├── CNAME           # GitHub Pages custom domain
 ├── robots.txt      # Search crawler rules
@@ -155,7 +155,7 @@ Before publishing changes, confirm:
 - the dark/light theme toggle works
 - interactive architecture sections work
 - the calculator updates correctly
-- the contact form opens a pre-filled email draft
+- the contact form submits successfully and Formspree is correctly configured to receive submissions
 - the site remains fully static and GitHub Pages compatible
 - `CNAME`, `robots.txt`, and `sitemap.xml` remain in the repository root
 - no secrets, private operational details, or copied third-party images were added

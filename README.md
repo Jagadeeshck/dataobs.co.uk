@@ -65,7 +65,7 @@ All diagrams and visuals in this repository should be original first-party websi
 - Vanilla JavaScript
 - GitHub Pages
 
-There is no backend, package manager, build step, server runtime, or API dependency for the public website.
+The public website is statically hosted and has no first-party backend, package manager, build step, or server runtime. It may optionally rely on third-party services for contact or booking flows.
 
 ## Repository structure
 

@@ -1,6 +1,6 @@
 # DataObs Website
 
-Public website for **DataObs**, a founder-led consultancy focused on data observability, OpenTelemetry architecture, AI-era telemetry, cloud data platforms, Elastic/OpenSearch delivery, SIEM-aligned observability, and data platform engineering.
+Public website for **DataObs** — an Elasticsearch-native data observability platform with focused delivery services.
 
 ## Website
 
@@ -10,7 +10,9 @@ https://dataobs.co.uk/
 
 ## Purpose
 
-This repository contains the public marketing website for DataObs. The site is designed to explain the consultancy offer, show the DataObs architecture approach, and give prospective clients a clear way to start an architecture review.
+This repository contains the public marketing website for DataObs.
+
+The site now leads with the **product** (Elasticsearch-native data, pipeline, and AI observability) while still offering clear paths for architecture reviews and delivery engagements.
 
 DataObs helps platform, data, observability, security, and AI engineering teams make data platforms easier to trust and operate by connecting:
 
@@ -26,21 +28,24 @@ The website is intentionally static, lightweight, and easy to host on GitHub Pag
 
 ## Positioning
 
-DataObs is presented as a consultancy and delivery studio, not as a finished SaaS product.
+**Primary**: Elasticsearch-native Data Observability platform (six-pillar model).
 
-The public site introduces three connected delivery areas:
+**Secondary**: Founder-led consultancy and delivery support to accelerate adoption.
 
-### DataObs Advisory and Delivery
+### Product highlights
 
-Consultancy-led assessment, architecture, implementation, dashboards, alerting, runbooks, and operational handover for data observability initiatives.
+- Elasticsearch + Kibana as the system of record and investigation surface
+- OpenTelemetry and OpenLineage as ingestion standards
+- Six pillars: Platform, Data Pipeline, Data, FinOps, Business, AI & Agent
+- Quality engine, lineage, pipeline/streams monitoring, incident workflows
+- Self-managed, controllable, and cost-transparent
 
-### DataObs Platform Accelerator
+### Delivery offers
 
-Reusable implementation patterns for full-stack, pipeline, data, and business observability. These patterns help speed up delivery while still allowing each client architecture to be adapted to the tools and controls already in place.
-
-### DPE — Data Platform Engine
-
-A data platform engineering accelerator for infrastructure-as-code-based delivery of cloud data platform components, with observability designed in from the start.
+- Observability Assessment Sprint
+- OTEL Foundation Build
+- AI Agent Telemetry PoC
+- Broader architecture and implementation support
 
 ## Design direction
 
@@ -49,14 +54,14 @@ The website is intended to feel like a modern observability and platform enginee
 Current design themes:
 
 - OpenTelemetry-first storytelling
-- interactive architecture sections
+- Elasticsearch-native product emphasis
+- six-pillar model
 - original SVG/CSS diagrams
 - dark/light visual style
 - telemetry flow graphics
-- platform and accelerator positioning
 - browser-only calculator and contact flow
 
-All diagrams and visuals in this repository should be original first-party website assets. Third-party screenshots, vendor diagrams, article images, social-media images, or copied product graphics should not be committed unless there is explicit permission and a clear reason to use them.
+All diagrams and visuals in this repository should be original first-party website assets.
 
 ## Tech stack
 
@@ -65,108 +70,48 @@ All diagrams and visuals in this repository should be original first-party websi
 - Vanilla JavaScript
 - GitHub Pages
 
-The public website is statically hosted and has no first-party backend, package manager, build step, or server runtime. It may optionally rely on third-party services for contact or booking flows.
-
 ## Repository structure
 
 ```text
 .
-├── index.html      # Main static website
-├── styles.css      # Layout, theme, responsive design, visual diagrams
-├── script.js       # Mobile menu, theme toggle, interactive sections, calculator, contact form handling
-├── assets/         # First-party static assets
-├── CNAME           # GitHub Pages custom domain
-├── robots.txt      # Search crawler rules
-├── sitemap.xml     # Public sitemap
-└── README.md       # Project notes and maintenance guidance
+├── index.html                 # Main homepage (product-led)
+├── product.html               # Product overview page
+├── how-we-work.html
+├── services.html
+├── agentguard.html
+├── otel-config-generator.html
+├── contact.html
+├── styles.css
+├── script.js
+├── assets/
+├── CNAME
+├── robots.txt
+├── sitemap.xml
+└── README.md
 ```
 
 ## Local preview
-
-From the repository root:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open:
-
-```text
-http://localhost:8000
-```
+Then open `http://localhost:8000`.
 
 ## Deployment
 
-The site is served directly by GitHub Pages from the `main` branch and repository root.
+The site is served by GitHub Pages from the `main` branch. Use feature branches and pull requests for updates.
 
-The `CNAME` file is required for the custom domain and should contain only:
+## Content guidelines
 
-```text
-dataobs.co.uk
-```
-
-DNS and registrar configuration should be managed outside this repository. Follow GitHub Pages custom-domain guidance when changing domain settings.
-
-## Public repository standards
-
-This is a public repository, so keep the content suitable for external viewing.
-
-Do not commit:
-
-- secrets, API keys, tokens, passwords, or `.env` files
-- DNS records, registrar screenshots, or private hosting notes
-- private client names, client architecture, or delivery documents
-- personal addresses or non-public contact details
-- copied third-party diagrams, screenshots, vendor graphics, or article images
-- unverified claims about clients, partnerships, certifications, awards, or analyst recognition
-
-Acceptable public content includes:
-
-- approved marketing copy
-- first-party diagrams and SVG/CSS/JS visuals
-- public service descriptions
-- public contact email
-- GitHub Pages files such as `CNAME`, `robots.txt`, and `sitemap.xml`
-
-## Content style
-
-Use a confident but accurate consultancy tone.
-
-Preferred wording:
-
-- vendor-neutral
-- OpenTelemetry-first
-- architecture-led
-- implementation-focused
-- operable handover
-- data product trust
-- business impact
-- telemetry correlation
-- reusable accelerator patterns
-
-Avoid overclaiming. Do not add fake testimonials, fake customers, fake logos, fake partner badges, or claims that cannot be verified.
-
-## Maintenance checklist
-
-Before publishing changes, confirm:
-
-- all navigation anchors point to existing sections
-- the mobile menu opens and closes correctly
-- the dark/light theme toggle works
-- interactive architecture sections work
-- the calculator updates correctly
-- the contact form submits successfully and Formspree is correctly configured to receive submissions
-- the site remains fully static and GitHub Pages compatible
-- `CNAME`, `robots.txt`, and `sitemap.xml` remain in the repository root
-- no secrets, private operational details, or copied third-party images were added
+- Lead with the product, keep services as the acceleration path.
+- Stay accurate about current maturity (the product is under active development).
+- Prefer “Elasticsearch-native”, “OpenTelemetry-first”, “six-pillar model”.
+- Do not add unverified claims, fake testimonials, or third-party logos without permission.
 
 ## Next improvements
 
-Recommended next steps:
-
-- Add a first-party Open Graph preview image under `assets/`.
-- Add a short privacy page before introducing analytics or third-party embeds.
-- Create service-specific landing sections for Data Observability Assessment, OTEL Foundation Build, Elastic/OpenSearch Delivery, AI Agent Telemetry, and DPE Review.
-- Add real case studies only after client approval is available.
-- Add a simple content review checklist for future website edits.
-- Improve accessibility testing with keyboard navigation and contrast checks.
+- Add first-party Open Graph / social preview image
+- Add privacy page if analytics are introduced
+- Expand product screenshots and architecture diagrams once available
+- Keep navigation and CTAs aligned with the main DataObs repository status

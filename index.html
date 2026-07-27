@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataObs | Data Observability for AI-Era Data Platforms</title>
-  <meta name="description" content="DataObs helps platform and data teams design OpenTelemetry-first observability across pipelines, data quality, AI agents, Elastic, OpenSearch, Grafana, SIEM and cloud data platforms.">
+  <title>DataObs | Elasticsearch-native Data Observability Platform</title>
+  <meta name="description" content="DataObs is an Elasticsearch-native data observability platform. Monitor pipelines, ensure data quality, trace lineage, govern AI agents, and understand business impact — powered by OpenTelemetry and OpenLineage.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,6 +13,7 @@
   <button class="menu-btn" aria-expanded="false" aria-controls="site-nav">☰</button>
   <nav id="site-nav" class="site-nav">
     <a href="index.html" class="active">Home</a>
+    <a href="product.html">Product</a>
     <a href="how-we-work.html">How we work</a>
     <a href="otel-config-generator.html">OTel Config Tool</a>
     <a href="services.html">Services</a>
@@ -22,32 +23,128 @@
   </nav>
   <div class="header-actions">
     <button id="themeToggle" class="ghost-btn" aria-label="Toggle theme">◐</button>
-    <a class="btn" href="contact.html">Book a free review</a>
+    <a class="btn" href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="contact.html">Book a review</a>
   </div>
 </header>
 <main>
   <section class="hero section">
-    <div><p class="eyebrow">OpenTelemetry-first · Vendor-neutral · Operable handover</p><h1>Data observability for AI-era platforms</h1><p>DataObs helps platform and data teams connect pipeline telemetry, data quality, AI activity, and business impact using OpenTelemetry and the tools they already operate.</p><div class="hero-cta"><a class="btn" href="contact.html">Book a free review</a><a class="btn btn-secondary" href="how-we-work.html">See how we work</a></div></div>
+    <div>
+      <p class="eyebrow">Elasticsearch-native · OpenTelemetry · OpenLineage</p>
+      <h1>Data observability that runs on the stack you already trust</h1>
+      <p>DataObs is an Elasticsearch-native platform for data, pipeline, and AI observability. Detect quality issues, understand lineage and blast radius, monitor streams, and govern autonomous agents — all with search-first investigation in Kibana and a dedicated operational console.</p>
+      <div class="hero-cta">
+        <a class="btn" href="product.html">Explore the product</a>
+        <a class="btn btn-secondary" href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn btn-secondary" href="contact.html">Book a free review</a>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="why">
     <h2>Data platforms fail in silence</h2>
-    <div class="grid-5"><article class="card">Dashboards look healthy while data is stale.</article><article class="card">Pipelines retry without business context.</article><article class="card">AI agents move data without enough visibility.</article><article class="card">Security teams lack data-access evidence.</article><article class="card impact">Telemetry is collected, but data trust and business impact stay unclear.</article></div>
+    <div class="grid-5">
+      <article class="card">Dashboards look healthy while data is stale.</article>
+      <article class="card">Pipelines succeed but output quality drifts.</article>
+      <article class="card">Lineage is incomplete when incidents happen.</article>
+      <article class="card">AI agents move data without enough visibility.</article>
+      <article class="card impact">Telemetry is collected, but data trust and business impact stay unclear.</article>
+    </div>
+  </section>
+
+  <section class="section" id="pillars">
+    <h2>Six-pillar product model</h2>
+    <p class="section-intro">DataObs organises observability around the questions that matter to platform, data, and business teams.</p>
+    <div class="packages">
+      <article class="package">
+        <h3>1. Platform</h3>
+        <p>What is deployed, where, and is it healthy? Hosts, containers, Kubernetes, serverless, and cloud data services.</p>
+      </article>
+      <article class="package">
+        <h3>2. Data Pipeline</h3>
+        <p>Are jobs and streams running correctly and on time? Spark, dbt, Glue, Lambda, Kafka, and more.</p>
+      </article>
+      <article class="package">
+        <h3>3. Data</h3>
+        <p>Can I trust my data? Freshness, volume, schema, nullness, uniqueness, distribution drift, and lineage.</p>
+      </article>
+      <article class="package">
+        <h3>4. FinOps &amp; Cost</h3>
+        <p>What is the platform costing, and why? Allocation, anomalies, and optimisation signals.</p>
+      </article>
+      <article class="package">
+        <h3>5. Business</h3>
+        <p>Is the platform delivering value? SLAs, KPI impact, and data-product reliability.</p>
+      </article>
+      <article class="package">
+        <h3>6. AI &amp; Agent</h3>
+        <p>Can AI and autonomous agents be trusted, controlled, and audited?</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <h2>Core capabilities</h2>
+    <div class="grid-5">
+      <article class="card"><strong>Quality &amp; freshness</strong><br>Pluggable checks, baselines, and SLA monitoring.</article>
+      <article class="card"><strong>Lineage &amp; impact</strong><br>Dataset and column-level lineage with blast-radius analysis.</article>
+      <article class="card"><strong>Pipeline &amp; streams</strong><br>Job health, lag, throughput, and pathway monitoring.</article>
+      <article class="card"><strong>Incident workflows</strong><br>Alerting, cases, and guided remediation paths.</article>
+      <article class="card impact"><strong>Search-first investigation</strong><br>Elasticsearch + Kibana as the system of record.</article>
+    </div>
+  </section>
+
+  <section class="section" id="architecture">
+    <h2>Architecture principles</h2>
+    <div class="packages">
+      <article class="package">
+        <h3>Elasticsearch-native</h3>
+        <p>Data streams, versioned state indices, transforms, ES|QL, and Kibana for deep investigation. Elasticsearch is the system of record.</p>
+      </article>
+      <article class="package">
+        <h3>Open standards</h3>
+        <p>OpenTelemetry for telemetry. OpenLineage for job and lineage events. Vendor-neutral ingestion by design.</p>
+      </article>
+      <article class="package">
+        <h3>Collection plane</h3>
+        <p>Reuse Elastic Agent / Fleet / EDOT where possible. DataObs Scanner for data-specific scanning, profiling, and quality.</p>
+      </article>
+    </div>
   </section>
 
   <section class="section" id="services-overview">
-    <h2>Services overview</h2>
+    <h2>How we help you adopt it</h2>
+    <p class="section-intro">The product is open and self-managed. We also offer focused delivery engagements to accelerate value.</p>
     <div class="packages">
-      <article class="package"><h3>Observability Assessment Sprint</h3><p>Map telemetry gaps and define a practical implementation roadmap.</p><p class="package-price">From £2,500</p><a href="services.html" class="btn btn-secondary">Learn more</a></article>
-      <article class="package"><h3>OTEL Foundation Build</h3><p>Implement OpenTelemetry patterns across data pipelines and platforms.</p><p class="package-price">From £5,000</p><a href="services.html" class="btn btn-secondary">Learn more</a></article>
-      <article class="package"><h3>AI Agent Telemetry PoC</h3><p>Add governance visibility for agent, MCP, and tool activity.</p><p class="package-price">From £3,000</p><a href="services.html" class="btn btn-secondary">Learn more</a></article>
+      <article class="package">
+        <h3>Observability Assessment Sprint</h3>
+        <p>Map telemetry gaps and define a practical implementation roadmap.</p>
+        <p class="package-price">From £2,500</p>
+        <a href="services.html" class="btn btn-secondary">Learn more</a>
+      </article>
+      <article class="package">
+        <h3>OTEL Foundation Build</h3>
+        <p>Implement OpenTelemetry patterns across data pipelines and platforms.</p>
+        <p class="package-price">From £5,000</p>
+        <a href="services.html" class="btn btn-secondary">Learn more</a>
+      </article>
+      <article class="package">
+        <h3>AI Agent Telemetry PoC</h3>
+        <p>Add governance visibility for agent, MCP, and tool activity.</p>
+        <p class="package-price">From £3,000</p>
+        <a href="services.html" class="btn btn-secondary">Learn more</a>
+      </article>
     </div>
   </section>
 
   <section class="section" id="agentguard-callout">
-    <p class="eyebrow">Open-source project</p><h2>AgentGuard — AI activity observability</h2>
+    <p class="eyebrow">Open-source companion</p>
+    <h2>AgentGuard — AI activity observability</h2>
     <p>AgentGuard collects and normalises AI activity telemetry into ECS, then routes events to your existing Elastic or OpenSearch stack.</p>
-    <div class="hero-cta"><a class="btn" href="agentguard.html">Explore AgentGuard</a><a class="btn btn-secondary" href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">View on GitHub</a></div>
+    <div class="hero-cta">
+      <a class="btn" href="agentguard.html">Explore AgentGuard</a>
+      <a class="btn btn-secondary" href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
   </section>
 
   <section class="section" id="otel-config-tool">
@@ -60,14 +157,39 @@
 
   <section class="section cta" id="contact">
     <h2>Ready to make your data platform observable?</h2>
-    <p>6 years of Elasticsearch and OpenSearch specialisation, enterprise-scale team leadership, and AWS-native data platform delivery.</p>
+    <p>Elasticsearch-native data observability with open standards, a clear six-pillar model, and practical delivery support.</p>
     <div class="contact-grid">
-      <article class="contact-call card"><h3>Book a call</h3><p>Start with a focused architecture conversation to map telemetry gaps and identify the highest-impact first steps.</p><a class="btn" href="https://calendly.com/dataobs" target="_blank" rel="noopener">Book a free 30-min architecture review</a></article>
-      <div><h3>Send a message</h3><form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST"><input type="hidden" name="_subject" value="DataObs enquiry"><input name="name" placeholder="Name" required><input name="email" type="email" placeholder="Business email" required><input type="hidden" name="_replyto" id="replyToField"><input name="company" placeholder="Company"><input name="tools" placeholder="Current tools"><textarea name="challenge" placeholder="Main challenge" required></textarea><button class="btn" type="submit">Send message</button></form><p class="note">We respond within 1 business day. You can also email hello@dataobs.co.uk directly.</p></div>
+      <article class="contact-call card">
+        <h3>Book a call</h3>
+        <p>Start with a focused architecture conversation to map telemetry gaps and identify the highest-impact first steps.</p>
+        <a class="btn" href="https://calendly.com/dataobs" target="_blank" rel="noopener">Book a free 30-min architecture review</a>
+      </article>
+      <div>
+        <h3>Send a message</h3>
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST">
+          <input type="hidden" name="_subject" value="DataObs enquiry">
+          <input name="name" placeholder="Name" required>
+          <input name="email" type="email" placeholder="Business email" required>
+          <input type="hidden" name="_replyto" id="replyToField">
+          <input name="company" placeholder="Company">
+          <input name="tools" placeholder="Current tools">
+          <textarea name="challenge" placeholder="Main challenge" required></textarea>
+          <button class="btn" type="submit">Send message</button>
+        </form>
+        <p class="note">We respond within 1 business day. You can also email hello@dataobs.co.uk directly.</p>
+      </div>
     </div>
   </section>
 </main>
-<footer class="site-footer"><p>© 2026 DataObs / KJC INFOTECH Ltd</p><p><a href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener">GitHub</a> · <a href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">AgentGuard</a> · <a href="https://github.com/sponsors/Jagadeeshck" target="_blank" rel="noopener">Sponsor</a></p><small>Vendor-neutral · OTel-first · UK-based remote delivery</small></footer>
+<footer class="site-footer">
+  <p>© 2026 DataObs / KJC INFOTECH Ltd</p>
+  <p>
+    <a href="https://github.com/Jagadeeshck/DataObs" target="_blank" rel="noopener">Product GitHub</a> ·
+    <a href="https://github.com/Jagadeeshck/AgentGuard" target="_blank" rel="noopener">AgentGuard</a> ·
+    <a href="https://github.com/sponsors/Jagadeeshck" target="_blank" rel="noopener">Sponsor</a>
+  </p>
+  <small>Elasticsearch-native · OpenTelemetry-first · UK-based remote delivery</small>
+</footer>
 <script src="script.js"></script>
 </body>
 </html>
